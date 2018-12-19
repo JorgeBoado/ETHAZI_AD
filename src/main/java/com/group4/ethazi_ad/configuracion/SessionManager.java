@@ -2,6 +2,7 @@ package com.group4.ethazi_ad.configuracion;
 
 import java.util.Properties;
 
+
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.Session;
@@ -16,13 +17,26 @@ public class SessionManager {
         registerMappers(config);
         
         // Establece las propiedades de configuracion
-        config.setProperties(getHibernateProperties() );
-        
+        config.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+        config.setProperty("hibernate.connection.url", "jdbc:mysql://kasserver.synology.me:3307/reto_gp4");
+        config.setProperty("hibernate.connection.username", "gp4");
+        config.setProperty("hibernate.connection.password", "MmlYOc8DvJXQns7D");
+        config.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        config.setProperty("hibernate.show_sql", "false");
+            config.setProperty("hibernate.hbm2ddl.auto", "update");
+        config.setProperty("hibernate.current_session_context_class", "thread");
+       // config.setProperties(getHibernateProperties() );
+
         // Retorna una sesion de trabajo
         return config.buildSessionFactory().openSession();
     }
     
     private static Properties getHibernateProperties(){
+
+
+/**
+ *
+ */
         // Instancia un objeto del tipo Properties.
         Properties props = new Properties();
         //TODO
@@ -33,15 +47,14 @@ public class SessionManager {
         // Establece la url de conexion, donde al final va el nombre de la BD
         //para MySQL  props.put("hibernate.connection.url", "jdbc:mysql://localhost/testHibernate");
         //TODO
-        props.put("hibernate.connection.url", "jdbc:mysql://localhost/testHibernate");
+        props.put("hibernate.connection.url", "jdbc:mysql://kasserver.synology.me:3307/reto_gp4");
                 
-        // Establece el usuario.
-        //TODO
-        props.put("hibernate.connection.username", "db2admin");
-        
-        //TODO
+
+        props.put("hibernate.connection.username", "gp4");
+
+
         // Establece la clave.
-        props.put("hibernate.connection.password", "db2admin");
+        props.put("hibernate.connection.password", "MmlYOc8DvJXQns7D");
         
         // Establece el dialecto a utilizar. Es necesario determinarlo ya que la implementacion
         // de SQL puede variar con cada motor de base de datos.
@@ -56,7 +69,10 @@ public class SessionManager {
     // Cada clase mapeada debera aparecer aca.
     private static void registerMappers(Configuration config) throws MappingException
     {
-        config.addResource("modelo/clases/Cliente.hbm.xml");
-        config.addResource("modelo/clases/Administrador.hbm.xml");
+       // config.addResource("../../main/resources/Cliente.xml");
+
+
+        config.addResource("Cliente.hbm.xml");//.buildSessionFactory();
+        config.addResource("Administrador.hbm.xml");
     }
 }
