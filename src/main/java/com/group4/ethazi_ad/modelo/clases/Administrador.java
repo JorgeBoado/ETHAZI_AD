@@ -6,9 +6,9 @@ import com.group4.ethazi_ad.modelo.constantes.Literales;
 /**
  * Clase Administrador.
  *
- * @Author: Jon
- * @Version: 19/12/2018
- * @See: com.group4.ethazi_ad.modelo.constantes.Literales
+ * @author : Jon
+ * @version : 19/12/2018
+ * @see : com.group4.ethazi_ad.modelo.constantes.Literales
  *
  * Administradores de la base de datos,  pueden ser root y editor:
  * El root se encarga de administrar los usuarios, el editor los alojamientos
@@ -25,7 +25,7 @@ public class Administrador implements Serializable {
 	/**
 	 * Los tipos de Administrador posibles Tiposadmin.
 	 */
-	public static enum TiposAdmin { root, editor }
+	public  enum TiposAdmin { root, editor }
 
 	/**
 	 * Constructor de Administrador.
@@ -43,14 +43,14 @@ public class Administrador implements Serializable {
 		this.tipo = tipo;
 	}
 
+
 	/**
 	 * Getters de Administrador
 	 *
-	 */
-	/**
+	 *
 	 * @return id   el numero de identificacion
 	 */
-	public int getAdminId() {
+	public int getid() {
 		return id;
 	}
 	/**
@@ -73,10 +73,11 @@ public class Administrador implements Serializable {
 	}
 
 	/**
-	 * Setters de Administrador
-	 *
-	 */
+
+
 	/**
+     * Setters de Administrador
+	 *
 	 * @param id   el numero de identificacion
 	 */
 	public void setId(int id) {

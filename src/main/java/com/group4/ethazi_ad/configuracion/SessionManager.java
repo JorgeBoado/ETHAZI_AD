@@ -17,8 +17,8 @@ public class SessionManager {
         registerMappers(config);
         
         // Establece las propiedades de configuracion
-        config.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        config.setProperty("hibernate.connection.url", "jdbc:mysql://kasserver.synology.me:3307/reto_gp4");
+        config.setProperty("hibernate.connection.driver_class", "org.mariadb.jdbc.Driver");
+        config.setProperty("hibernate.connection.url", "jdbc:mariadb://kasserver.synology.me:3307/reto_gp4");
         config.setProperty("hibernate.connection.username", "gp4");
         config.setProperty("hibernate.connection.password", "MmlYOc8DvJXQns7D");
         config.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
@@ -34,9 +34,6 @@ public class SessionManager {
     private static Properties getHibernateProperties(){
 
 
-/**
- *
- */
         // Instancia un objeto del tipo Properties.
         Properties props = new Properties();
         //TODO
