@@ -9,8 +9,8 @@ public class Prueba {
 Cliente b = new Cliente( 1212);
 
 
-        b = SentenciasHQL.select_User(b);
-        System.out.println(b.toString());
+         SentenciasHQL.select_Users_Contain_Nick("jo");
+
 
     }
 
