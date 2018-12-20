@@ -3,9 +3,11 @@ package com.group4.ethazi_ad.controlador;
 import com.group4.ethazi_ad.controlador.configuracion.SessionManager;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.clases.Cliente;
+import com.group4.ethazi_ad.modelo.clases.TiposAdmin;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 
 /**
@@ -97,7 +99,7 @@ public class SentenciasHQL<pass> {
     public static Administrador select_User(Administrador admin) {
         Session session = SessionManager.getSession();
         session.beginTransaction();
-        int id = admin.getid();
+        int id = admin.getId();
         admin = session.get(Administrador.class, id);
         session.close();
         return admin;
@@ -116,15 +118,16 @@ public class SentenciasHQL<pass> {
     }
 
     /**
-     * El metodo select_Users_Contain_Nick seleciona los
+     * El metodo select_Users_Contain_Search seleciona los
      * clientes cuyo nick o email contiene la busqueda
      * <p>
      * pensado para cuando el usuario de la aplicacion
      * esta escribiendo o pulsa intro al terminar
-     * <p>
-     * TODO
+     * </p>
+     * @param busqueda: La busqueda de un nombre o correo en un textbox
+     * @return :Una lista de clientes
      */
-    public static ArrayList<Cliente> select_Users_Contain_Nick(String busqueda) {
+    public static ArrayList<Cliente> select_Users_Contain_Search(String busqueda) {
         Session session = SessionManager.getSession();
         session.beginTransaction();
         Query query = session.createQuery("from Cliente where nick like :nick or email like :email");
@@ -135,27 +138,58 @@ public class SentenciasHQL<pass> {
         for (int i = 0; i < query.list().size(); i++) {
             clientes.add((Cliente) query.list().get(i));
         }
+        session.close();
         return clientes;
     }
 
     /**
-     * El metodo select_Users_Contain_Nick seleciona los
+     * El metodo select_Users_Contain_Search seleciona los
      * administradores cuyo nick contiene la busqueda
+     * <p>
      * pensado para cuando el usuario de la aplicacion
      * esta escribiendo o pulsa intro al terminar
-     * <p>
-     * TODO
+     * </p>
+     * @param admin : La busqueda de un nombre en un textbox
+     * @return :Una lista de administradores
      */
-    public static ArrayList<Administrador> select_Users_Contain_Nick(Administrador admin) {
+    public static ArrayList<Administrador> select_Users_Contain_Search(Administrador admin) {
         Session session = SessionManager.getSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Administrador where nick like :nick");
+        Query query = session.createQuery("from Administrador where nick like :nick and tipo = :tipo");
         query.setParameter("nick", "%" + admin.getNick() + "%");
+        query.setParameter("tipo", TiposAdmin.EDITOR);
         ArrayList<Administrador> admins = new ArrayList<>();
         for (int i = 0; i < query.list().size(); i++) {
             admins.add((Administrador) query.list().get(i));
         }
+        session.close();
+        return admins;
+    }
 
+    /**
+     * TODO
+     * @param admin :
+     * @return lista de administradores
+     */
+    public static ArrayList<Administrador> select_Users_Search(Administrador admin) {
+        Session session = SessionManager.getSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Administrador where nick like :nick");
+        query.setParameter("nick", "%" + admin.getNick() + "%");
+       query.setParameter("id", "%" + admin.getId() + "%");
+        query.setParameter("tipo", admin.getRole());
+        ArrayList<Administrador> admins = new ArrayList<>();
+
+        try{
+            for (int i = 0; i < query.list().size(); i++) {
+                admins.add((Administrador) query.list().get(i));
+            }
+        }
+        catch (PersistenceException e){
+            System.out.println("sin resultados");
+        }
+
+        session.close();
         return admins;
     }
 

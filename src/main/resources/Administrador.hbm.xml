@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+
     <class  name="com.group4.ethazi_ad.modelo.clases.Administrador" table="Admins">
         <id name="id" column="id">
             <!--<generator class="increment" />-->
         </id>
-        <property name="nick" />
+
         <property name="pass" />
-        <property name="tipo" />
+        <property name="role" />
+        <property name="nick" />
     </class>
 </hibernate-mapping>
