@@ -21,6 +21,21 @@ public class Cliente implements Serializable {
 		this.pass = pass;
 		this.email = email;
 	}
+	public Cliente() {	}
+
+
+	/**
+	 * Constructor de Clientes
+	 *
+	 * Este constructor crea el objeto solo con claves primarias
+	 * para facilitar las selects individuales mediante ORM
+	 *
+	 * @param: numero de identificacion
+	 */
+	public Cliente(int id) {
+		super();
+	this.id = id;
+	}
 
 	public int getId() {
 		return id;

@@ -5,8 +5,14 @@ package com.group4.ethazi_ad.controlador;
 public class Prueba {
     public static void main(String[] args) {
         Cliente c = new Cliente(1212, "nick",
-                "123456789J", "11111111", "jon@gmail.com");
+                "11111111J", "11111111", "jon@gmail.com");
+Cliente b = new Cliente( 1212);
 
-        SentenciasHQL.ins_Cliente(c);
+
+        b = SentenciasHQL.select_User(b);
+        System.out.println(b.toString());
+
     }
+
+
 }

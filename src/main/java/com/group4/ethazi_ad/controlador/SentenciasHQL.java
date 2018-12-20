@@ -1,9 +1,11 @@
 package com.group4.ethazi_ad.controlador;
 
-import com.group4.ethazi_ad.configuracion.SessionManager;
+import com.group4.ethazi_ad.controlador.configuracion.SessionManager;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.clases.Cliente;
 import org.hibernate.Session;
+
+import java.util.List;
 
 /**
  * Clase SentenciasHQL
@@ -16,9 +18,9 @@ import org.hibernate.Session;
  *
  * Los metodos de esta clase son sobrecargados.
  */
-public class SentenciasHQL {
+public class SentenciasHQL<pass> {
 
-    //__________PARECE SER QUE TIENE UN AUTOCOMMIT
+    //No es necesario guardar en una variable la transaccion
     //Transaction tx = session.beginTransaction();
     //tx.commit();
 
@@ -82,4 +84,28 @@ public class SentenciasHQL {
         session.getTransaction().commit();
         session.close();
     }
+    /**
+     * TODO
+     */
+    public static Administrador select_User(Administrador admin){
+        Session session = SessionManager.getSession();
+        session.beginTransaction();
+        int id = admin.getid();
+        admin = session.get(Administrador.class, id);
+        session.close();
+        return admin;
+    }
+    /**
+     * TODO
+     */
+    public static Cliente select_User(Cliente cliente){
+        Session session = SessionManager.getSession();
+        session.beginTransaction();
+        int id = cliente.getId();
+        cliente = session.get(Cliente.class, id);
+        session.close();
+        return cliente;
+    }
+
+
 }
