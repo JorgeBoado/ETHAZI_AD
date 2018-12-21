@@ -16,6 +16,7 @@ public class Tablas {
 		public static final String PASS = "pass";
 		public static final String DNI= "dni";
 		public static final String ID= "id";
+		public static final String EMAIL= "email";
 	}
 
 	public class Alojamientos{

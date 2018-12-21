@@ -3,7 +3,8 @@ package com.group4.ethazi_ad.controlador;
 import com.group4.ethazi_ad.controlador.configuracion.SessionManager;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.clases.Cliente;
-import com.group4.ethazi_ad.modelo.clases.TiposAdmin;
+import com.group4.ethazi_ad.modelo.constantes.Literales;
+import com.group4.ethazi_ad.modelo.constantes.Tablas;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -127,19 +128,39 @@ public class SentenciasHQL<pass> {
      * @param busqueda: La busqueda de un nombre o correo en un textbox
      * @return :Una lista de clientes
      */
-    public static ArrayList<Cliente> select_Users_Contain_Search(String busqueda) {
+    public static ArrayList<Cliente> select_Clients_Contain_Search(String busqueda) {
         Session session = SessionManager.getSession();
         session.beginTransaction();
         Query query = session.createQuery("from Cliente where nick like :nick or email like :email");
-        query.setParameter("nick", "%" + busqueda + "%");
-        query.setParameter("email", "%" + busqueda + "%");
+        query.setParameter(Tablas.Clientes.NICK, "%" + busqueda + "%");
+        query.setParameter(Tablas.Clientes.EMAIL, "%" + busqueda + "%");
+        return getClientes(session, query);
+    }
 
+    private static ArrayList<Cliente> getClientes(Session session, Query query) {
         ArrayList<Cliente> clientes = new ArrayList<>();
-        for (int i = 0; i < query.list().size(); i++) {
-            clientes.add((Cliente) query.list().get(i));
+        try{
+
+            for (int i = 0; i < query.list().size(); i++) {
+                clientes.add((Cliente) query.list().get(i));
+            }
         }
+        catch (PersistenceException e){
+            System.out.println("No se encontraron clientes");
+        }
+
         session.close();
         return clientes;
+    }
+
+    public static ArrayList<Cliente> select_Clients_Contain_Client(Cliente client) {
+        Session session = SessionManager.getSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Cliente where nick like :nick or email like :email and id = :id");
+        query.setParameter(Tablas.Clientes.NICK, "%" + client.getNick() + "%");
+        query.setParameter(Tablas.Clientes.EMAIL, "%" + client.getEmail() + "%");
+        query.setParameter(Tablas.Clientes.ID, client.getId());
+        return getClientes(session, query);
     }
 
     /**
@@ -149,18 +170,28 @@ public class SentenciasHQL<pass> {
      * pensado para cuando el usuario de la aplicacion
      * esta escribiendo o pulsa intro al terminar
      * </p>
-     * @param admin : La busqueda de un nombre en un textbox
+     * @param busqueda : La busqueda de un nombre en un textbox
+     * @param busqueda : La tipo de usuario
      * @return :Una lista de administradores
      */
-    public static ArrayList<Administrador> select_Users_Contain_Search(Administrador admin) {
+    public static ArrayList<Administrador> select_Admins_Contain_Nick(String busqueda, String tipo) {
         Session session = SessionManager.getSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Administrador where nick like :nick and tipo = :tipo");
-        query.setParameter("nick", "%" + admin.getNick() + "%");
-        query.setParameter("tipo", TiposAdmin.EDITOR);
+        Query query = session.createQuery("from Administrador where nick like :nick and role = :role");
+        query.setParameter(Tablas.Administradores.NICK, "%" + busqueda + "%");
+        query.setParameter(Tablas.Administradores.ROLE, tipo);
+        return getAdministradors(session, query);
+    }
+
+    private static ArrayList<Administrador> getAdministradors(Session session, Query query) {
         ArrayList<Administrador> admins = new ArrayList<>();
-        for (int i = 0; i < query.list().size(); i++) {
-            admins.add((Administrador) query.list().get(i));
+        try{
+            for (int i = 0; i < query.list().size(); i++) {
+                admins.add((Administrador) query.list().get(i));
+            }
+        }
+        catch (PersistenceException e){
+            System.out.println("sin resultados");
         }
         session.close();
         return admins;
@@ -171,27 +202,13 @@ public class SentenciasHQL<pass> {
      * @param admin :
      * @return lista de administradores
      */
-    public static ArrayList<Administrador> select_Users_Search(Administrador admin) {
+    public static ArrayList<Administrador> select_Admins_Contain_Admin(Administrador admin) {
         Session session = SessionManager.getSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Administrador where nick like :nick");
+        Query query = session.createQuery("from Administrador where nick like :nick and id like :id and role = :role");
+        query.setString("id", "%"+admin.getId()+"%");
         query.setParameter("nick", "%" + admin.getNick() + "%");
-       query.setParameter("id", "%" + admin.getId() + "%");
-        query.setParameter("tipo", admin.getRole());
-        ArrayList<Administrador> admins = new ArrayList<>();
-
-        try{
-            for (int i = 0; i < query.list().size(); i++) {
-                admins.add((Administrador) query.list().get(i));
-            }
-        }
-        catch (PersistenceException e){
-            System.out.println("sin resultados");
-        }
-
-        session.close();
-        return admins;
+        query.setParameter("role", admin.getRole());
+        return getAdministradors(session, query);
     }
-
-
 }

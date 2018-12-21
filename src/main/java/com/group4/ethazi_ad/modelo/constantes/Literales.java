@@ -17,7 +17,8 @@ public class Literales {
      * @see Administrador#toString()
      */
     public static final String T_ADMIN =  "Tipo de administrador ";
-
+    public static final String ADMINISTRADOR = "root";
+    public static final String EDITOR ="editor";
     /**
      * Literales de la clase Cliente
      * @see com.group4.ethazi_ad.modelo.clases.Cliente
@@ -32,7 +33,12 @@ public class Literales {
      */
     public static final String ID =  "Número de identificación: ";
     public static final String NICK =  "Nick: ";
+
+    public class Mensajes{
+        public static final String NORESULTS = "Sin resultados en la busqueda";
+    }
 }
+
 
     /**
      *  Literales de la clase alojamientos TODO

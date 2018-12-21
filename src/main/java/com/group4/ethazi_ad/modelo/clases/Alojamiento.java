@@ -12,7 +12,7 @@ public class Alojamiento implements Serializable {
     private String municipio;
     private int postcode;
 
-    public static enum TiposAloj {
+    public static enum TiposAloj implements  Serializable {
         Agroturismos, Casas_Rurales, Albergues, Campings
     }
 

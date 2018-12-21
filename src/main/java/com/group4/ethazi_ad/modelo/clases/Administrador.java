@@ -6,17 +6,11 @@ import com.group4.ethazi_ad.modelo.constantes.Literales;
 
 public class Administrador implements Serializable {
 
-
 	private static final long serialVersionUID = 1056505022894794374L;
 	private int id;
 	private String nick;
 	private String pass;
 	private String role;
-
-
-
-
-
 
 	public Administrador(int id, String nick, String pass, String role) {
 		super();
@@ -26,7 +20,6 @@ public class Administrador implements Serializable {
 		this.role = role;
 	}
 	public Administrador() {}
-
 
 	public int getId() {
 		return id;
