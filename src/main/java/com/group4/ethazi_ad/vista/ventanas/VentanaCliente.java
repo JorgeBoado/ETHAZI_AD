@@ -1,29 +1,19 @@
 package com.group4.ethazi_ad.vista.ventanas;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.URL;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-
 import com.group4.ethazi_ad.controlador.Control;
 import com.group4.ethazi_ad.controlador.SentenciasHQL;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.clases.Cliente;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.paneles.ModernTXField;
-import com.group4.ethazi_ad.vista.paneles.PanelDegradado2;
+import com.group4.ethazi_ad.vista.paneles.PanelDegradado3;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class VentanaCliente extends JDialog {
 
@@ -37,11 +27,12 @@ public class VentanaCliente extends JDialog {
 	private JPanel contentPane;
 	public final int CREAR = 1;
 	private static JButton btn_anterior;
-	private static  VentanaCliente frame;
+	private static VentanaCliente frame;
 	private static JTextField txt_Nick;
 	private JTextField txt_correo;
 	private JTextField txt_pass;
 	private static JLabel lbl_error;
+	private JTextField txt_Dni;
 
 	public static JTextField getTxt_Nick() {
 		return txt_Nick;
@@ -51,14 +42,14 @@ public class VentanaCliente extends JDialog {
 		VentanaCliente.txt_Nick = txt_Nick;
 	}
 
-	public static void adminFrame(final Object usuario, final int modo, final int x, final int y) {
+	public static void clientFrame(final Object usuario, final int modo, final int x, final int y) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					frame = new VentanaCliente(usuario, x, y, modo);
 					frame.getContentPane().requestFocusInWindow();
 					txt_Nick.requestFocus();
-					VentanaAdmin.getTxt_Nick().requestFocus();
+					VentanaCliente.getTxt_Nick().requestFocus();
 					frame.setVisible(true);
 
 				} catch (Exception e) {
@@ -71,13 +62,14 @@ public class VentanaCliente extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaCliente(final Object usuario,final int x,final int y, final int modo) {
+	public VentanaCliente(final Object usuario, final int x, final int y, final int modo) {
 		super(frame, true);
+		final String  passcigrada = ((Cliente) usuario).getPass();
 		setUndecorated(true);
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(x, y, 450, 254);
-		contentPane = new PanelDegradado2();
+		setBounds(x, y, 450, 298);
+		contentPane = new PanelDegradado3();
 		contentPane.setFocusTraversalPolicyProvider(true);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,7 +84,7 @@ public class VentanaCliente extends JDialog {
 		JLabel lbl_pass = new JLabel("Pass:");
 		lbl_pass.setForeground(Color.LIGHT_GRAY);
 		lbl_pass.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lbl_pass.setBounds(25, 155, 46, 14);
+		lbl_pass.setBounds(25, 195, 46, 14);
 		contentPane.add(lbl_pass);
 
 		JLabel lbl_titulo = new JLabel("");
@@ -140,7 +132,7 @@ public class VentanaCliente extends JDialog {
 		lbl_error = new JLabel("ERROR");
 		lbl_error.setForeground(new Color(255, 0, 0));
 		lbl_error.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_error.setBounds(41, 212, 233, 14);
+		lbl_error.setBounds(25, 254, 233, 14);
 		lbl_error.setVisible(false);
 		contentPane.add(lbl_error);
 
@@ -151,39 +143,52 @@ public class VentanaCliente extends JDialog {
 		txt_pass.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txt_pass.setHorizontalAlignment(SwingConstants.LEFT);
 		txt_pass.setColumns(10);
-		txt_pass.setBounds(81, 154, 333, 20);
+		txt_pass.setBounds(81, 191, 333, 23);
+		contentPane.add(txt_pass);
 
 		txt_Nick = new ModernTXField();
 		if (modo == 2) {
-			txt_Nick.setText(((Administrador) usuario).getNick());
+		txt_Nick.setText(((Cliente) usuario).getNick());
 		}
 		txt_Nick.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txt_Nick.setHorizontalAlignment(SwingConstants.LEFT);
-		txt_Nick.setBounds(227, 80, 187, 20);
+		txt_Nick.setBounds(227, 77, 187, 23);
 		contentPane.add(txt_Nick);
 		txt_Nick.setColumns(10);
 
 		txt_correo = new ModernTXField();
 		if (modo == 2) {
-			txt_correo.setText(((Cliente) usuario).getEmail());
+		txt_correo.setText(((Cliente) usuario).getEmail());
 		}
 		txt_correo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txt_correo.setHorizontalAlignment(SwingConstants.LEFT);
 		txt_correo.setColumns(10);
-		txt_correo.setBounds(227, 118, 187, 20);
+		txt_correo.setBounds(153, 115, 261, 23);
 		contentPane.add(txt_correo);
 
-		contentPane.add(txt_pass);
+		txt_Dni = new ModernTXField();
+		if (modo == 2) {
+		txt_Dni.setText(((Cliente) usuario).getDni());
+		}
+		txt_Dni.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txt_Dni.setBounds(310, 154, 101, 23);
+		txt_Dni.setHorizontalAlignment(SwingConstants.LEFT);
+		contentPane.add(txt_Dni);
+		txt_Dni.setColumns(10);
+
 		JButton btn_guardar = new JButton();
 		btn_guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (modo == 1) {
 
-					Administrador admin = new Administrador(0, txt_Nick.getText(), txt_pass.getText(),
-							Literales.AdminsLiterals.EDITOR, txt_correo.getText());
+					Cliente cliente = new Cliente(0, txt_Nick.getText(), txt_Dni.getText(), txt_pass.getText(),
+							txt_correo.getText());
 					try {
-						SentenciasHQL.insert_User(admin);
+
+							((Administrador) usuario).cifrar();
+
+						SentenciasHQL.insert_User(cliente);
 						Control.control(Control.UPDATELIST, null);
 						dispose();
 					} catch (Exception e) {
@@ -196,9 +201,13 @@ public class VentanaCliente extends JDialog {
 
 					((Cliente) usuario).setNick(txt_Nick.getText());
 					((Cliente) usuario).setEmail(txt_correo.getText());
+					((Cliente) usuario).setPass(txt_Dni.getText());
 					((Cliente) usuario).setPass(txt_pass.getText());
+					if (!passcigrada.equals(((Cliente) usuario).getPass())){
+						((Cliente) usuario).cifrar();
+					}
 					try {
-						SentenciasHQL.modify_User(((Administrador) usuario));
+						SentenciasHQL.modify_User(((Cliente) usuario));
 						Control.control(Control.UPDATELIST, null);
 						dispose();
 					} catch (Exception e) {
@@ -215,11 +224,17 @@ public class VentanaCliente extends JDialog {
 		btn_guardar.setContentAreaFilled(false);
 		btn_guardar.setBorder(null);
 		btn_guardar.setBackground((Color) null);
-		btn_guardar.setBounds(377, 190, 63, 53);
+		btn_guardar.setBounds(377, 234, 63, 53);
 		URL imageURL3 = getClass().getClassLoader().getResource(Literales.Iconos.SAVEICO);
 		ImageIcon saveico = new ImageIcon(imageURL3);
 		btn_guardar.setIcon(saveico);
 		contentPane.add(btn_guardar);
+
+		JLabel lblDni = new JLabel("DNI:");
+		lblDni.setForeground(Color.LIGHT_GRAY);
+		lblDni.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblDni.setBounds(25, 156, 46, 14);
+		contentPane.add(lblDni);
 
 	}
 }

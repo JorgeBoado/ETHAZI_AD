@@ -1,10 +1,9 @@
 package com.group4.ethazi_ad.controlador;
 
-        import com.group4.ethazi_ad.modelo.clases.Administrador;
-        import com.group4.ethazi_ad.modelo.clases.Cliente;
-        import com.group4.ethazi_ad.modelo.constantes.Literales;
+import com.group4.ethazi_ad.modelo.clases.Administrador;
+import com.group4.ethazi_ad.modelo.clases.Cliente;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Prueba {
     public static void main(String[] args) {

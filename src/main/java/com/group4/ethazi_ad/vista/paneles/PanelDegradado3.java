@@ -1,12 +1,7 @@
 package com.group4.ethazi_ad.vista.paneles;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class PanelDegradado3  extends JPanel {
 

@@ -1,18 +1,11 @@
 package com.group4.ethazi_ad.vista.paneles;
 
-import com.group4.ethazi_ad.vista.paneles.Elemento_A_Listar;
-import com.group4.ethazi_ad.vista.paneles.Elementos_Listados;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 public class PanelUsuarios extends JPanel {
 
@@ -65,7 +58,13 @@ public class PanelUsuarios extends JPanel {
 		Elemento_A_Listar aux;
 		try {
 			while (cont < aMostrar) {
-				aux = new Elemento_A_Listar(usuarios.get(elemento + cont), (byte) 0);
+				byte modo;
+				if (VentanaPrincipal.getRdbtnEditores().isSelected()) {
+					modo = Elemento_A_Listar.VER_EDITORES;
+				} else {
+					modo = Elemento_A_Listar.VER_CLIENTES;
+				}
+				aux = new Elemento_A_Listar(usuarios.get(elemento + cont), modo);
 				pUsuarios.add(aux);
 				cont++;
 			}
@@ -114,8 +113,13 @@ public class PanelUsuarios extends JPanel {
 		}
 		Elemento_A_Listar aux;
 		while (cont < aMostrar) {
-
-			aux = new Elemento_A_Listar(usuarios.get(elemento + cont), (byte) 0);
+			byte modo;
+			if (VentanaPrincipal.getRdbtnEditores().isSelected()) {
+				modo = Elemento_A_Listar.VER_EDITORES;
+			} else {
+				modo = Elemento_A_Listar.VER_CLIENTES;
+			}
+			aux = new Elemento_A_Listar(usuarios.get(elemento + cont), modo);
 			pUsuarios.add(aux);
 
 			cont++;
@@ -143,10 +147,17 @@ public class PanelUsuarios extends JPanel {
 		btnNewButton.setBorder(null);
 		btnNewButton.setBounds(485, 432, 50, 16);
 		add(btnNewButton);
+		@SuppressWarnings("unchecked")
+		ArrayList<Object> usuarios = (ArrayList<Object>) arrayusers;
+		if (((ArrayList<?>) arrayusers).size() < 1) {
+			lbl_SinResultados.setVisible(false);
+		} else {
+			lbl_SinResultados.setVisible(true);
+		}
+	
 		if (((ArrayList<?>) arrayusers).size() > 0) {
 			PanelUsuarios.pUsuarios.clear();
-			@SuppressWarnings("unchecked")
-			ArrayList<Object> usuarios = (ArrayList<Object>) arrayusers;
+	
 			setPreferredSize(new Dimension(500, 450));
 			setLayout(null);
 			int cont = 0;
@@ -168,7 +179,14 @@ public class PanelUsuarios extends JPanel {
 			Elemento_A_Listar aux;
 			if (usuarios.size() > 0) {
 				while (cont < aMostrar) {
-					aux = new Elemento_A_Listar(usuarios.get(elemento + cont), (byte) 0);
+					byte modo;
+					if (VentanaPrincipal.getRdbtnEditores().isSelected()) {
+						modo = Elemento_A_Listar.VER_EDITORES;
+					} else {
+						modo = Elemento_A_Listar.VER_CLIENTES;
+
+					}
+					aux = new Elemento_A_Listar(usuarios.get(elemento + cont), modo);
 					pUsuarios.add(aux);
 					cont++;
 				}

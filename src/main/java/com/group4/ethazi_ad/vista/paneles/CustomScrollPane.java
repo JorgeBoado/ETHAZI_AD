@@ -1,24 +1,11 @@
 package com.group4.ethazi_ad.vista.paneles;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Rectangle;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.plaf.basic.BasicScrollBarUI;
 
 class CustomScrollPane extends JScrollPane
 {

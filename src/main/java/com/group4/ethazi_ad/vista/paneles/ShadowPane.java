@@ -1,14 +1,8 @@
 package com.group4.ethazi_ad.vista.paneles;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class ShadowPane extends JPanel {
 

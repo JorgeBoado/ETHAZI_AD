@@ -1,8 +1,5 @@
 package com.group4.ethazi_ad.modelo.constantes;
 
-import com.group4.ethazi_ad.modelo.clases.Administrador;
-import com.group4.ethazi_ad.modelo.clases.Cliente;
-
 /**
  * Clase de constantes que contienen todos los textos que no son
  * ni enumeraciones ni tablas.

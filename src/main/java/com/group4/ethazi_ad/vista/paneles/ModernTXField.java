@@ -1,9 +1,7 @@
 package com.group4.ethazi_ad.vista.paneles;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
 public class ModernTXField extends JTextField {
 

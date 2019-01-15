@@ -1,10 +1,11 @@
 package com.group4.ethazi_ad.controlador;
 
-import java.util.ArrayList;
-
 import com.group4.ethazi_ad.modelo.clases.Administrador;
+import com.group4.ethazi_ad.modelo.clases.Cliente;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
+
+import java.util.ArrayList;
 
 public class Control {
 
@@ -26,36 +27,48 @@ public class Control {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void actualizarLista() {
 
 		if (VentanaPrincipal.getRdbtnEditores().isSelected()) {
 
 			VentanaPrincipal.getTxField_buscar().requestFocus();
-			VentanaPrincipal.getUsuarios().clear();
-			ArrayList<Administrador> a = new ArrayList<Administrador>(
-					SentenciasHQL.select_Admins_Contain_Nick(VentanaPrincipal.getLastFind(), Literales.AdminsLiterals.EDITOR));
-			VentanaPrincipal.setUsuarios(a);
-			for (int i = 0; i < VentanaPrincipal.getUsuarios().size(); i++) {
-				System.out.println(VentanaPrincipal.getUsuarios().get(i).toString());
+			ArrayList<Administrador> a = new ArrayList<Administrador>(SentenciasHQL
+					.select_Admins_Contain_Nick(VentanaPrincipal.getLastFind(), Literales.AdminsLiterals.EDITOR));
+			((ArrayList<Administrador>) VentanaPrincipal.getUsuarios()).clear();
+			VentanaPrincipal.setUsuarios(((Object) a));
+			for (int i = 0; i < a.size(); i++) {
+				System.out.println(a.get(i).toString());
 			}
 
-			VentanaPrincipal.getPa_buscarUsuarios().actualizar(VentanaPrincipal.getUsuarios());
 			VentanaPrincipal.getPa_buscarUsuarios().actualizar(VentanaPrincipal.getUsuarios());
 
 			VentanaPrincipal.getPa_contenedor().updateUI();
 			VentanaPrincipal.getPa_contenedor().repaint();
 			VentanaPrincipal.getPa_contenedor().validate();
-		}
-		else {
+		} else {
+			VentanaPrincipal.getTxField_buscar().requestFocus();
+			ArrayList<Cliente> a = new ArrayList<Cliente>(
+					SentenciasHQL.select_Clients_Contain_Search(VentanaPrincipal.getLastFind()));
+			((ArrayList<Cliente>) VentanaPrincipal.getUsuarios()).clear();
+			VentanaPrincipal.setUsuarios(((Object) a));
+			for (int i = 0; i < a.size(); i++) {
+				System.out.println(a.get(i).toString());
+			}
+
+			VentanaPrincipal.getPa_buscarUsuarios().actualizar(VentanaPrincipal.getUsuarios());
 			
+
+			VentanaPrincipal.getPa_contenedor().updateUI();
+			VentanaPrincipal.getPa_contenedor().repaint();
+			VentanaPrincipal.getPa_contenedor().validate();
 		}
-		
+
 	}
-	
+
 	public static void deleteUser(Object usuario) {
 		VentanaPrincipal.setFocusTxField();
-		SentenciasHQL.delele_User((Administrador)usuario);
-		
+		SentenciasHQL.delele_User((Administrador) usuario);
 
 	}
 }

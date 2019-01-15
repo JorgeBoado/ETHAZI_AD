@@ -1,8 +1,9 @@
 package com.group4.ethazi_ad.modelo.clases;
 
-import java.io.Serializable;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import org.apache.commons.codec.digest.DigestUtils;
+
+import java.io.Serializable;
 
 
 public class Administrador implements Serializable {
@@ -62,7 +63,7 @@ public class Administrador implements Serializable {
 	}
 
 	public void setPass(String pass) {
-		this.pass = DigestUtils.sha256Hex(pass);
+		this.pass = pass;
 	}
 
 	public String getRole() {
@@ -80,6 +81,9 @@ public class Administrador implements Serializable {
 		datos += Literales.AdminsLiterals.NAME + this.name + "\n";
 		datos += Literales.AdminsLiterals.T_ADMIN + this.role;
 		return datos;
+	}
+	public String cifrar(){
+		return DigestUtils.sha256Hex(this.pass);
 	}
 
 }

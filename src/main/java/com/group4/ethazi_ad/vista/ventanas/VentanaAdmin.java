@@ -1,36 +1,18 @@
 package com.group4.ethazi_ad.vista.ventanas;
 
-import java.awt.EventQueue;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import com.group4.ethazi_ad.controlador.Control;
 import com.group4.ethazi_ad.controlador.SentenciasHQL;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.paneles.ModernTXField;
 import com.group4.ethazi_ad.vista.paneles.PanelDegradado2;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Toolkit;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.net.URL;
-
-import javax.swing.FocusManager;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 public class VentanaAdmin extends JDialog {
 

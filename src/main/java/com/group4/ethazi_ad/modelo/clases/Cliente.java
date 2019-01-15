@@ -23,12 +23,14 @@ public class Cliente implements Serializable {
 		this.pass = pass;
 		this.email = email;
 	}
-	public Cliente() {	}
+
+	public Cliente() {
+	}
 
 
 	/**
 	 * Constructor de Clientes
-	 *
+	 * <p>
 	 * Este constructor crea el objeto solo con claves primarias
 	 * para facilitar las selects individuales mediante ORM
 	 *
@@ -36,14 +38,16 @@ public class Cliente implements Serializable {
 	 */
 	public Cliente(int id) {
 		super();
-	this.id = id;
+		this.id = id;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) { this.id = id; }
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getNick() {
 		return nick;
@@ -53,17 +57,29 @@ public class Cliente implements Serializable {
 		this.nick = nick;
 	}
 
-	public String getDni() { return dni; }
+	public String getDni() {
+		return dni;
+	}
 
-	public void setDni(String dni) { this.dni = dni; }
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 
-	public String getPass() { return pass; }
+	public String getPass() {
+		return pass;
+	}
 
-	public void setPass(String pass) { this.pass = DigestUtils.sha256Hex(pass); }
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
 
-	public String getEmail() { return email; }
+	public String getEmail() {
+		return email;
+	}
 
-	public void setEmail(String email) { this.email = email; }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public String toString() {
@@ -73,5 +89,11 @@ public class Cliente implements Serializable {
 		datos += Literales.ClientsLiterals.NICK + this.nick + "\n";
 		datos += Literales.ClientsLiterals.EMAIL + this.email;
 		return datos;
+	}
+
+	public void cifrar() {
+		this.pass =DigestUtils.sha256Hex(this.pass);
+
+
 	}
 }

@@ -1,44 +1,17 @@
 package com.group4.ethazi_ad.vista.ventanas;
 
-import java.awt.EventQueue;
+import com.group4.ethazi_ad.controlador.Control;
+import com.group4.ethazi_ad.controlador.SentenciasHQL;
+import com.group4.ethazi_ad.controlador.configuracion.SessionManager;
+import com.group4.ethazi_ad.modelo.constantes.Literales;
+import com.group4.ethazi_ad.vista.paneles.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import com.group4.ethazi_ad.controlador.Control;
-import com.group4.ethazi_ad.controlador.SentenciasHQL;
-import com.group4.ethazi_ad.controlador.configuracion.SessionManager;
-import com.group4.ethazi_ad.modelo.clases.Administrador;
-import com.group4.ethazi_ad.modelo.constantes.Literales;
-import com.group4.ethazi_ad.vista.paneles.ModernTXField;
-import com.group4.ethazi_ad.vista.paneles.PanelAtrasAlante;
-import com.group4.ethazi_ad.vista.paneles.PanelDegradado;
-import com.group4.ethazi_ad.vista.paneles.PanelUsuarios;
-import com.group4.ethazi_ad.vista.paneles.RoundedCornerBorder;
-import com.group4.ethazi_ad.vista.paneles.ShadowPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.PointerInfo;
-import java.awt.Toolkit;
-import java.awt.CardLayout;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -105,12 +78,13 @@ public class VentanaPrincipal extends JFrame {
 		VentanaPrincipal.btn_off = btn_off;
 	}
 
-	public static ArrayList<Administrador> getUsuarios() {
+	public static Object getUsuarios() {
 		return usuarios;
 	}
 
-	public static void setUsuarios(ArrayList<Administrador> usuarios) {
-		VentanaPrincipal.usuarios = usuarios;
+	@SuppressWarnings("unchecked")
+	public static void setUsuarios(Object a) {
+		VentanaPrincipal.usuarios = (ArrayList<Object>) a;
 	}
 
 	public static JTextField getTxField_buscar() {
@@ -138,7 +112,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	private static JButton btn_off;
-	private static ArrayList<Administrador> usuarios = new ArrayList<Administrador>();
+	private static ArrayList<Object> usuarios = new ArrayList<Object>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -179,6 +153,7 @@ public class VentanaPrincipal extends JFrame {
 	/**
 	 * Create the frame
 	 */
+	@SuppressWarnings("unchecked")
 	public VentanaPrincipal() {
 		setUndecorated(true);
 		setResizable(false);
@@ -198,7 +173,7 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(pa_contenedor);
 		pa_contenedor.setLayout(new CardLayout(0, 0));
 
-		usuarios = SentenciasHQL.select_Admins_Contain_Nick("la", "editor");
+		usuarios = (ArrayList<Object>) ((ArrayList<?>) SentenciasHQL.select_Admins_Contain_Nick("la", "editor"));
 
 		crearPaneles();
 
@@ -330,7 +305,7 @@ public class VentanaPrincipal extends JFrame {
 				if (rdbtnEditores.isSelected()) {
 					VentanaAdmin.adminFrame(null, VentanaAdmin.NEWUSER, x, y);
 				} else {
-
+					VentanaCliente.clientFrame(null, VentanaCliente.NEWUSER, x, y);
 				}
 
 				txField_buscar.requestFocus();
@@ -365,6 +340,14 @@ public class VentanaPrincipal extends JFrame {
 		pa_barraHerramientas.add(btn_off);
 
 		rdbtnEditores = new JRadioButton("Editores");
+		rdbtnEditores.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				Control.control(Control.UPDATELIST, null);
+			}
+		});
+
 		rdbtnEditores.setForeground(Color.WHITE);
 		rdbtnEditores.setSelected(true);
 		rdbtnEditores.setOpaque(false);
@@ -373,6 +356,14 @@ public class VentanaPrincipal extends JFrame {
 		pa_barraHerramientas.add(rdbtnEditores);
 
 		rdbtnClientes = new JRadioButton("Clientes");
+
+		rdbtnClientes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				Control.control(Control.UPDATELIST, null);
+			}
+		});
 		rdbtnClientes.setForeground(Color.WHITE);
 		rdbtnClientes.setOpaque(false);
 		rdbtnClientes.setFont(new Font("Tahoma", Font.BOLD, 14));

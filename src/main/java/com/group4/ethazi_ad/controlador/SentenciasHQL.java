@@ -61,7 +61,7 @@ public class SentenciasHQL<pass> {
         Session session = SessionManager.getSession();
         session.update(cliente);  //Modifica el cliente
         session.getTransaction().commit();
-        session.close();
+    
     }
 
     /**
@@ -116,9 +116,11 @@ public class SentenciasHQL<pass> {
      */
     public static ArrayList<Cliente> select_Clients_Contain_Search(String busqueda) {
         Session session = SessionManager.getSession();
-        Query query = session.createQuery("from Cliente where nick like :nick or email like :email");
+        @SuppressWarnings("unchecked")
+		Query<Cliente> query = session.createQuery("from Cliente where nick like :nick or email like :email or dni like :dni");
         query.setParameter(Tablas.Clientes.NICK, "%" + busqueda + "%");
         query.setParameter(Tablas.Clientes.EMAIL, "%" + busqueda + "%");
+        query.setParameter(Tablas.Clientes.DNI, "%" + busqueda + "%");
         return getClientes(session, query);
     }
 
@@ -133,14 +135,14 @@ public class SentenciasHQL<pass> {
         catch (PersistenceException e){
             System.out.println("No se encontraron clientes");
         }
-
+System.out.println("Se han encontrado " + clientes.size() + " clientes");
         return clientes;
     }
 
     public static ArrayList<Cliente> select_Clients_Contain_Client(Cliente client) {
         Session session = SessionManager.getSession();
 
-        Query query = session.createQuery("from Cliente where nick like :nick or email like :email and id = :id");
+        Query<Cliente> query = session.createQuery("from Cliente where nick like :nick or email like :email and id = :id");
         query.setParameter(Tablas.Clientes.NICK, "%" + client.getNick() + "%");
         query.setParameter(Tablas.Clientes.EMAIL, "%" + client.getEmail() + "%");
         query.setParameter(Tablas.Clientes.ID, client.getId());
@@ -160,7 +162,7 @@ public class SentenciasHQL<pass> {
      */
     public static ArrayList<Administrador> select_Admins_Contain_Nick(String busqueda, String tipo) {
         Session session = SessionManager.getSession();
-        Query query = session.createQuery("from Administrador where nick like :nick or name like :name and role = :role");
+        Query<Cliente> query = session.createQuery("from Administrador where nick like :nick or name like :name and role = :role");
         query.setParameter(Tablas.Administradores.NICK, "%" + busqueda + "%");
         query.setParameter(Tablas.Administradores.NAME, "%" + busqueda + "%");
         query.setParameter(Tablas.Administradores.ROLE, tipo);
@@ -192,7 +194,7 @@ public class SentenciasHQL<pass> {
     public static ArrayList<Administrador> select_Admins_Contain_Admin(Administrador admin) {
         Session session = SessionManager.getSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Administrador where nick like :nick and id like :id and role = :role");
+        Query<Cliente> query = session.createQuery("from Administrador where nick like :nick and id like :id and role = :role");
         query.setString("id", "%"+admin.getId()+"%");
         query.setParameter("nick", "%" + admin.getNick() + "%");
         query.setParameter("role", admin.getRole());
@@ -204,7 +206,7 @@ public class SentenciasHQL<pass> {
     public static ArrayList<Administrador> select_all_Admins() {
         Session session = SessionManager.getSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Administrador where role = :role");
+        Query<Cliente> query = session.createQuery("from Administrador where role = :role");
 
         query.setParameter("role", Literales.AdminsLiterals.EDITOR);
         ArrayList<Administrador> a = getAdministradors(session, query);

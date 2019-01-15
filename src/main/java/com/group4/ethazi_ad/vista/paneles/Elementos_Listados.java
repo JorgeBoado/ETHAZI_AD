@@ -1,9 +1,8 @@
 package com.group4.ethazi_ad.vista.paneles;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 
 public class Elementos_Listados extends JPanel {
 	/**

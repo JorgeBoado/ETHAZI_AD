@@ -3,16 +3,12 @@ package com.group4.ethazi_ad.vista.paneles;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 public class PanelAtrasAlante extends JPanel {
 
