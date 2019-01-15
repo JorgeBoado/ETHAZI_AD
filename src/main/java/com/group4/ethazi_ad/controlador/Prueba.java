@@ -10,7 +10,7 @@ public class Prueba {
     public static void main(String[] args) {
         Cliente c = new Cliente(1212, "nick",
                 "11111111J", "11111111", "jon@gmail.com");
-        Administrador a = new Administrador(2,"root",null,"root");
+       // Administrador a = new Administrador((Integer) 2,"du","ro","editor");
         ArrayList<Cliente> clients = new ArrayList<>();
         ArrayList<Administrador> admins = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class Prueba {
         admins = SentenciasHQL.select_Admins_Contain_Nick("du", Literales.EDITOR);
         adminsToString(admins);
 */
-   admins = SentenciasHQL.select_Admins_Contain_Admin(a);
+   admins = SentenciasHQL.select_all_Admins();
    adminsToString(admins);
     }
 

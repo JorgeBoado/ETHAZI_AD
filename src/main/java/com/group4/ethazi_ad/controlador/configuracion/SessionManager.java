@@ -1,34 +1,57 @@
 package com.group4.ethazi_ad.controlador.configuracion;
 
-import java.util.Properties;
-
+import com.group4.ethazi_ad.modelo.constantes.Literales;
 import org.hibernate.HibernateException;
-import org.hibernate.MappingException;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * Clase De Conexion con la BD mediante ORM
+ * 
+ * Las propiedades y mapeos se encuentran definidas en la Clase Literales
+ *
+ * @author : Jon
+ * @version : 21 /12/2018
+ */
 public class SessionManager {
-	public static Session getSession() throws HibernateException{
+	
+	
+	private static Session session;
 
-        Configuration config = new Configuration(); // Instancia un objeto del tipo Configuration
-        registerMappers(config); // Registra las clases a mapear en la configuracion
-        
-        // Establece las propiedades de configuracion
-        config.setProperty("hibernate.connection.driver_class", "org.mariadb.jdbc.Driver");
-        config.setProperty("hibernate.connection.url", "jdbc:mariadb://kasserver.synology.me:3307/reto_gp4");
-        config.setProperty("hibernate.connection.username", "gp4");
-        config.setProperty("hibernate.connection.password", "MmlYOc8DvJXQns7D");
-        config.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        config.setProperty("hibernate.show_sql", "false");
-        config.setProperty("hibernate.hbm2ddl.auto", "update");
-        config.setProperty("hibernate.current_session_context_class", "thread");
+	/**
+	 * createSession :
+	 * 
+	 *  Crea una conexion con la bbdd cargando las propiedades y los mapeos
+	 *  de la Literales
+	 */
+	public static void createSession() throws HibernateException {
+		Configuration config = new Configuration(); // Instancia un objeto del tipo Configuration
+		for (String s : Literales.SessionLiterals.MAPPERS) config.addResource(s);// Carga los mapeos xml
+		for (String[] s : Literales.SessionLiterals.PROPERTYS) config.setProperty(s[0], s[1]);// Carga las propiedades
+		session = config.buildSessionFactory().openSession(); // Retorna una sesion de trabajo
+		System.out.println("Sesion creada con exito");
+	}
 
-        return config.buildSessionFactory().openSession(); // Retorna una sesion de trabajo
-    }
+	/*
+	 *  getSession :
+	 *  
+	 *   @return : la sesion de hibernate 
+	 * */
+	public static Session getSession() {
+		if (!session.isJoinedToTransaction()) {
+		       session.beginTransaction();
+		}
+ 
+		return session;
+	}
 
-    // Cada clase mapeada debera aparecer aca.
-    private static void registerMappers(Configuration config) throws MappingException{
-        config.addResource("Cliente.hbm.xml");
-        config.addResource("Administrador.hbm.xml");
-    }
+	/*
+	 *  disconnect :
+	 *  
+	 *  Cierra la conexion cuando la aplicaccion va ha finalizar
+	 * */
+	public static void disconnect() {
+		session.close();
+		System.out.println("Desconectado con exito");
+	}
 }

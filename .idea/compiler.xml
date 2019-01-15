@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ETHAZI_AD" />
         <module name="UserAdmin" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="UserAdmin" target="7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -66,9 +66,10 @@ public class Cliente implements Serializable {
 	@Override
 	public String toString() {
 		String datos = "";
-		datos += Literales.ID + this.id + "\n";
-		datos += Literales.DNI + this.nick + "\n";
-		datos += Literales.EMAIL + this.email;
+		datos += Literales.ClientsLiterals.ID + this.id + "\n";
+		datos += Literales.ClientsLiterals.DNI + this.dni + "\n";
+		datos += Literales.ClientsLiterals.NICK + this.nick + "\n";
+		datos += Literales.ClientsLiterals.EMAIL + this.email;
 		return datos;
 	}
 }

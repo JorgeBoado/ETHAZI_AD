@@ -3,15 +3,16 @@ package com.group4.ethazi_ad.modelo.constantes;
 public class Tablas {
 	
 	public class Administradores{
-		public static final String NOMBRE = "Admins";
+		public static final String NOMBRE = "admins";
 		public static final String NICK = "nick";
 		public static final String PASS = "pass";
 		public static final String ROLE= "role";
-		public static final String ID= "id";
+		public static final String ID = "id";
+		public static final String NAME = "name";
 	}
 
 	public class Clientes{
-		public static final String NOMBRE = "Clients";
+		public static final String NOMBRE = "clients";
 		public static final String NICK = "nick";
 		public static final String PASS = "pass";
 		public static final String DNI= "dni";
@@ -20,7 +21,7 @@ public class Tablas {
 	}
 
 	public class Alojamientos{
-		public static final String NOMBRE = "Lodging";
+		public static final String NOMBRE = "lodging";
 		public static final String ID= "id";
 		public static final String SIGNATURA = "name";
 		public static final String DESCRIPTION = "description";
@@ -41,7 +42,7 @@ public class Tablas {
 	}
 
 	public class Ubicaciones{
-		public static final String NOMBRE = "PostalCode";
+		public static final String NOMBRE = "postalCode";
 		public static final String POSTALCODE = "postalcode";
 		public static final String TERRITORY = "territory";
 		public static final String MUNICIPALITYCODE= "municipalitycode";

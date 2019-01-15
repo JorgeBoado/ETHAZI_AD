@@ -11,16 +11,28 @@ public class Administrador implements Serializable {
 	private String nick;
 	private String pass;
 	private String role;
+	private String name;
 
-	public Administrador(int id, String nick, String pass, String role) {
+	public Administrador(int id, String nick, String pass, String role, String name) {
 		super();
-		this.id = id;
+		Object integer = new Integer(id);
+		if (!integer.equals(null)) {
+			this.id = id;		
+		}
+	
 		this.nick = nick;
 		this.pass = pass;
 		this.role = role;
+		this.name = name;
 	}
 	public Administrador() {}
 
+	public Administrador(String nick, String pass, String role, String name) {
+		this.nick = nick;
+		this.pass = pass;
+		this.role = role;
+		this.name = name;
+	}
 	public int getId() {
 		return id;
 	}
@@ -35,6 +47,13 @@ public class Administrador implements Serializable {
 
 	public void setNick(String nick) {
 		this.nick = nick;
+	}
+	public String getName() {
+		return name;
+	}
+
+	public void setname(String name) {
+		this.name = name;
 	}
 
 	public String getPass() {
@@ -55,9 +74,10 @@ public class Administrador implements Serializable {
 
 	public String toString() {
 		String datos = "";
-		datos += Literales.ID + this.id + "\n";
-		datos += Literales.NICK + this.nick + "\n";
-		datos += Literales.T_ADMIN + this.role;
+		datos += Literales.AdminsLiterals.ID + this.id + "\n";
+		datos += Literales.AdminsLiterals.NICK + this.nick + "\n";
+		datos += Literales.AdminsLiterals.NAME + this.name + "\n";
+		datos += Literales.AdminsLiterals.T_ADMIN + this.role;
 		return datos;
 	}
 

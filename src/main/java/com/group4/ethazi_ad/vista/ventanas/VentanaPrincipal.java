@@ -1,164 +1,392 @@
 package com.group4.ethazi_ad.vista.ventanas;
 
 import java.awt.EventQueue;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
+import com.group4.ethazi_ad.controlador.Control;
+import com.group4.ethazi_ad.controlador.SentenciasHQL;
+import com.group4.ethazi_ad.controlador.configuracion.SessionManager;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
+import com.group4.ethazi_ad.modelo.constantes.Literales;
+import com.group4.ethazi_ad.vista.paneles.ModernTXField;
+import com.group4.ethazi_ad.vista.paneles.PanelAtrasAlante;
+import com.group4.ethazi_ad.vista.paneles.PanelDegradado;
 import com.group4.ethazi_ad.vista.paneles.PanelUsuarios;
-
-
+import com.group4.ethazi_ad.vista.paneles.RoundedCornerBorder;
+import com.group4.ethazi_ad.vista.paneles.ShadowPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
+import java.awt.Toolkit;
 import java.awt.CardLayout;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 
 public class VentanaPrincipal extends JFrame {
-    private JPanel contentPane;
-    private JTextField txField_buscar;
-    private static JPanel pa_contenedor = new JPanel();
-    static JPanel pa_buscarUsuarios;
-    // variable de prueba
-    ArrayList<Object> usuarios = new ArrayList();
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    //LookAndFeel();
-                    VentanaPrincipal frame = new VentanaPrincipal();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	private static JRadioButton rdbtnClientes;
+	private static JRadioButton rdbtnEditores;
+	private static String lastFind;
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private static JTextField txField_buscar;
+	private static JPanel pa_contenedor = new JPanel();
+	private static PanelUsuarios pa_buscarUsuarios;
+	private static JButton btn_buscar;
+	private static VentanaPrincipal frame;
+	private static JButton btn_newUser;
+	private static ButtonGroup buttonGroup = new ButtonGroup();
+	private static int x;
+	private static int y;
 
-    public static void LookAndFeel() {
-        try {
-        // Set System L&F
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            // handle exception
-        }
-    }
+	public static JRadioButton getRdbtnClientes() {
+		return rdbtnClientes;
+	}
 
-    /**
-     * Create the frame
-     */
-    public VentanaPrincipal() {
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 768, 566);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
-        getContentPane().setLayout(null);
-        setLocationRelativeTo(null);
-        lanzarBarraHerramientas();
+	public static void setRdbtnClientes(JRadioButton rdbtnClientes) {
+		VentanaPrincipal.rdbtnClientes = rdbtnClientes;
+	}
 
-        // Crear contenedor
-        pa_contenedor.setBounds(0, 55, 762, 488);
-        contentPane.add(pa_contenedor);
-        pa_contenedor.setLayout(new CardLayout(0, 0));
-        /* Prueba jonor */
-        int cont = 0;
-        ArrayList<Administrador> admins = new ArrayList<Administrador>();
-        Administrador admin;
+	public static JRadioButton getRdbtnEditores() {
+		return rdbtnEditores;
+	}
 
-        while (cont < 27) {
-            admin = new Administrador(1 + cont, "nombre" + cont, null, null);
-            usuarios.add(admin);
-            cont++;
-        }
-        /* Prueba jonor */
-        crearPaneles();
+	public static void setRdbtnEditores(JRadioButton rdbtnEditores) {
+		VentanaPrincipal.rdbtnEditores = rdbtnEditores;
+	}
 
-    }
+	public static String getLastFind() {
+		return lastFind;
+	}
 
-    public void crearPaneles() {
-        // Crear consultar ofertas
+	public static void setLastFind(String lastFind) {
+		VentanaPrincipal.lastFind = lastFind;
+	}
 
-        pa_buscarUsuarios = new PanelUsuarios(usuarios);
-        pa_contenedor.add(pa_buscarUsuarios);
-/*
-			JPanel pa_publicarOferta = new PanelPublicarOferta();
-			pa_contenedor.add(pa_publicarOferta);
-			// Crear editar oferta
-			JPanel pa_editarOferta = new PanelEditarOferta();
-			pa_contenedor.add(pa_editarOferta);
+	public static JButton getBtn_buscar() {
+		return btn_buscar;
+	}
 
-			JPanel pa_abrirOferta;
-			pa_abrirOferta = new PanelAbrirOfertaEmpresa();
-			pa_contenedor.add(pa_abrirOferta);*/
+	public static void setBtn_buscar(JButton btn_buscar) {
+		VentanaPrincipal.btn_buscar = btn_buscar;
+	}
 
+	public static JButton getBtn_newUser() {
+		return btn_newUser;
+	}
 
-    }
+	public static void setBtn_newUser(JButton btn_newUser) {
+		VentanaPrincipal.btn_newUser = btn_newUser;
+	}
 
-    public void lanzarBarraHerramientas() {
-        JPanel pa_barraHerramientas = new JPanel();
-        pa_barraHerramientas.setLayout(null);
-        JButton btn_buscar = new JButton("");
-        btn_buscar.setBounds(0, 0, 50, 50);
-        pa_barraHerramientas.add(btn_buscar);
-        pa_barraHerramientas.setBounds(0, 0, 762, 50);
-        contentPane.add(pa_barraHerramientas);
+	public static JButton getBtn_off() {
+		return btn_off;
+	}
 
-        JButton btn_perfil = new JButton("");
-        btn_perfil.setToolTipText("Ver Perfil");
-        btn_perfil.setPreferredSize(new Dimension(33, 9));
-        btn_perfil.setMinimumSize(new Dimension(33, 9));
-        btn_perfil.setMaximumSize(new Dimension(33, 9));
-        btn_perfil.setBounds(642, 0, 50, 50);
-        pa_barraHerramientas.add(btn_perfil);
+	public static void setBtn_off(JButton btn_off) {
+		VentanaPrincipal.btn_off = btn_off;
+	}
 
-        JButton btn_apagar = new JButton("");
-        btn_apagar.setToolTipText("Cerrar Sesi\u00F3n");
-        btn_apagar.setAlignmentY(0.0f);
-        btn_apagar.setAlignmentX(1.0f);
-        btn_apagar.setBounds(702, 0, 50, 50);
-        pa_barraHerramientas.add(btn_apagar);
+	public static ArrayList<Administrador> getUsuarios() {
+		return usuarios;
+	}
 
-        txField_buscar = new JTextField();
-        txField_buscar.setToolTipText("");
-        txField_buscar.setText("Introduzca el nombre de la Oferta....\r\n");
-        txField_buscar.setHorizontalAlignment(SwingConstants.CENTER);
-        txField_buscar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        txField_buscar.setColumns(10);
-        txField_buscar.setBounds(51, 0, 195, 50);
-        pa_barraHerramientas.add(txField_buscar);
+	public static void setUsuarios(ArrayList<Administrador> usuarios) {
+		VentanaPrincipal.usuarios = usuarios;
+	}
 
-        JComboBox combo_menu = new JComboBox();
-        combo_menu.setToolTipText("Men\u00FA");
-        combo_menu.setName("");
-        combo_menu.setBounds(252, 0, 380, 50);
-        pa_barraHerramientas.add(combo_menu);
-    }
+	public static JTextField getTxField_buscar() {
+		return txField_buscar;
+	}
 
-    public static void addcont() {
+	public static void setTxField_buscar(JTextField txField_buscar) {
+		VentanaPrincipal.txField_buscar = txField_buscar;
+	}
 
-    }
+	public static JPanel getPa_contenedor() {
+		return pa_contenedor;
+	}
 
+	public static void setPa_contenedor(JPanel pa_contenedor) {
+		VentanaPrincipal.pa_contenedor = pa_contenedor;
+	}
 
-    public static void remcont() {
-        pa_contenedor.remove(pa_buscarUsuarios);
-    }
+	public static PanelUsuarios getPa_buscarUsuarios() {
+		return pa_buscarUsuarios;
+	}
+
+	public static void setPa_buscarUsuarios(PanelUsuarios pa_buscarUsuarios) {
+		VentanaPrincipal.pa_buscarUsuarios = pa_buscarUsuarios;
+	}
+
+	private static JButton btn_off;
+	private static ArrayList<Administrador> usuarios = new ArrayList<Administrador>();
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					// LookAndFeel();
+					SessionManager.createSession();
+					frame = new VentanaPrincipal();
+					// Esto va al logger TODO
+					frame.addWindowListener(new WindowAdapter() {
+						public void windowOpened(WindowEvent e) {
+							txField_buscar.requestFocus();
+						}
+					});
+					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public static void setFocusTxField() {
+		txField_buscar.requestFocus();
+	}
+
+	public static void LookAndFeel() {
+		try {
+			// Set System L&F
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
+				| IllegalAccessException e) {
+			// handle exception
+		}
+	}
+
+	/**
+	 * Create the frame
+	 */
+	public VentanaPrincipal() {
+		setUndecorated(true);
+		setResizable(false);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 523, 574);
+		contentPane = new ShadowPane();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
+		lanzarBarraHerramientas();
+		pa_contenedor.setBackground(new Color(35, 35, 35));
+		pa_contenedor.setBounds(0, 80, 762, 506);
+		contentPane.add(pa_contenedor);
+		pa_contenedor.setLayout(new CardLayout(0, 0));
+
+		usuarios = SentenciasHQL.select_Admins_Contain_Nick("la", "editor");
+
+		crearPaneles();
+
+	}
+
+	public void crearPaneles() {
+
+		pa_buscarUsuarios = new PanelUsuarios(usuarios);
+		pa_buscarUsuarios.setBackground(new Color(35, 35, 35));
+		pa_contenedor.add(pa_buscarUsuarios);
+
+	}
+
+	public void lanzarBarraHerramientas() {
+
+		JPanel pa_barraHerramientas = new PanelDegradado();
+		pa_barraHerramientas.setOpaque(false);
+		pa_barraHerramientas.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+				Point point = MouseInfo.getPointerInfo().getLocation();
+				setLocation(point.x - x, point.y - y);
+			}
+		});
+		pa_barraHerramientas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				x = e.getX();
+				y = e.getY();
+			}
+		});
+
+		pa_barraHerramientas.setLayout(null);
+
+		pa_barraHerramientas.setBounds(0, 0, 523, 81);
+		contentPane.add(pa_barraHerramientas);
+
+		txField_buscar = new ModernTXField();
+		txField_buscar.setAlignmentY(Component.TOP_ALIGNMENT);
+		txField_buscar.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		txField_buscar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					setLastFind(getTxField_buscar().getText());
+					Control.control(Control.UPDATELIST, null);
+					txField_buscar.setText("");
+				}
+				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					txField_buscar.setText("");
+				}
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					PanelAtrasAlante.leftPress();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					PanelAtrasAlante.rightPress();
+				}
+			}
+		});
+		txField_buscar.setToolTipText(Literales.ToolTips.SEARCH);
+		txField_buscar.setText("");
+		txField_buscar.setHorizontalAlignment(SwingConstants.LEFT);
+		txField_buscar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txField_buscar.setColumns(10);
+		txField_buscar.setBounds(67, 13, 195, 33);
+		pa_barraHerramientas.add(txField_buscar);
+
+		btn_buscar = new JButton();
+		btn_buscar.setFocusPainted(false);
+		btn_buscar.setBorder(null);
+		btn_buscar.setContentAreaFilled(false);
+		btn_buscar.setOpaque(false);
+		btn_buscar.setBackground(null);
+		try {
+			Image img = ImageIO.read(getClass().getResource(Literales.Iconos.FINDICO));
+			btn_buscar.setIcon(new ImageIcon(img));
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+
+		btn_buscar.setBounds(12, 5, 50, 50);
+		btn_buscar.setToolTipText(Literales.ToolTips.FIND);
+
+		btn_buscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btn_buscar.setFocusable(false);
+				VentanaPrincipal.getBtn_buscar().setFocusable(true);
+				setLastFind(getTxField_buscar().getText());
+				Control.control(Control.UPDATELIST, null);
+			}
+		});
+		btn_buscar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				btn_buscar.setFocusPainted(true);
+			}
+
+		});
+		;
+
+		pa_barraHerramientas.add(btn_buscar);
+		btn_newUser = new JButton();
+		btn_newUser.setBorder(null);
+		btn_newUser.setBackground(null);
+		btn_newUser.setOpaque(false);
+		btn_newUser.setContentAreaFilled(false);
+		btn_newUser.setToolTipText(Literales.ToolTips.NEWUSER);
+		try {
+			Image img = ImageIO.read(getClass().getResource(Literales.Iconos.NEWUSERICO));
+			btn_newUser.setIcon(new ImageIcon(img));
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+
+		btn_newUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btn_newUser.setFocusable(false);
+				btn_newUser.setFocusable(true);
+				Toolkit t = Toolkit.getDefaultToolkit();
+				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+				PointerInfo a = MouseInfo.getPointerInfo();
+				Point b = a.getLocation();
+				int x = (int) b.getX();
+				int y = (int) b.getY();
+				if (x > screenSize.width - 450) {
+					x = x - 450;
+				}
+				if (rdbtnEditores.isSelected()) {
+					VentanaAdmin.adminFrame(null, VentanaAdmin.NEWUSER, x, y);
+				} else {
+
+				}
+
+				txField_buscar.requestFocus();
+			}
+		});
+		btn_newUser.setBounds(269, 5, 66, 50);
+		pa_barraHerramientas.add(btn_newUser);
+
+		btn_off = new JButton();
+		btn_off.setBorder(null);
+		btn_off.setBackground(null);
+		btn_off.setOpaque(false);
+		btn_off.setContentAreaFilled(false);
+		try {
+			Image img = ImageIO.read(getClass().getResource(Literales.Iconos.OFFICO));
+			btn_off.setIcon(new ImageIcon(img));
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+		btn_off.setToolTipText(Literales.ToolTips.OFF);
+
+		btn_off.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btn_off.setFocusable(false);
+				btn_off.setFocusable(true);
+				txField_buscar.requestFocus();
+				SessionManager.disconnect();
+				dispose();
+			}
+		});
+		btn_off.setBounds(445, 5, 66, 50);
+		pa_barraHerramientas.add(btn_off);
+
+		rdbtnEditores = new JRadioButton("Editores");
+		rdbtnEditores.setForeground(Color.WHITE);
+		rdbtnEditores.setSelected(true);
+		rdbtnEditores.setOpaque(false);
+		rdbtnEditores.setFont(new Font("Tahoma", Font.BOLD, 14));
+		rdbtnEditores.setBounds(343, 8, 93, 23);
+		pa_barraHerramientas.add(rdbtnEditores);
+
+		rdbtnClientes = new JRadioButton("Clientes");
+		rdbtnClientes.setForeground(Color.WHITE);
+		rdbtnClientes.setOpaque(false);
+		rdbtnClientes.setFont(new Font("Tahoma", Font.BOLD, 14));
+		rdbtnClientes.setBounds(344, 28, 93, 23);
+		pa_barraHerramientas.add(rdbtnClientes);
+
+		buttonGroup.add(rdbtnClientes);
+		buttonGroup.add(rdbtnEditores);
+
+		txField_buscar.requestFocus();
+	}
+
+	public static void remcont() {
+		pa_contenedor.remove(pa_buscarUsuarios);
+	}
 
 }

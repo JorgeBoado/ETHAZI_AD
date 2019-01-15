@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class  name="com.group4.ethazi_ad.modelo.clases.Cliente" table="Clients">
+        <id name="id" column="id">
+          <generator class="increment" />
+        </id>
+        <property name="dni"   column="dni"/>
+        <property name="nick"  column="nick"/>
+        <property name="pass"  column="pass"/>
+        <property name="email" column="email"/>
+    </class>
+</hibernate-mapping>
