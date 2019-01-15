@@ -194,13 +194,11 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
     public static ArrayList<Administrador> select_Admins_Contain_Admin(Administrador admin) {
         Session session = SessionManager.getSession();
         session.beginTransaction();
-        Query<Cliente> query = session.createQuery("from Administrador where nick like :nick and id like :id and role = :role");
+        Query<Cliente> query = session.createQuery("from Administrador where nick = :nick ");
         query.setString("id", "%"+admin.getId()+"%");
         query.setParameter("nick", "%" + admin.getNick() + "%");
-        query.setParameter("role", admin.getRole());
         ArrayList<Administrador> a = getAdministradors(session, query);
-        session.close();
-        return getAdministradors(session, query);
+        return a;
     }
     
     public static ArrayList<Administrador> select_all_Admins() {

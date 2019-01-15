@@ -62,6 +62,7 @@ public abstract class Literales {
     	public static final String FDERECHAICO = "fderecha.png";
     	public static final String FIZQUIERDAICO = "fizquierda.png";
 		public static final String SAVEICO = "saveico.png";
+		public static final String LOGICO = "/logico.png";
     }
     
     public static class ToolTips{

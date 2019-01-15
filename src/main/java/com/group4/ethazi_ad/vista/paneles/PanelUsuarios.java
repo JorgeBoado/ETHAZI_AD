@@ -150,9 +150,9 @@ public class PanelUsuarios extends JPanel {
 		@SuppressWarnings("unchecked")
 		ArrayList<Object> usuarios = (ArrayList<Object>) arrayusers;
 		if (((ArrayList<?>) arrayusers).size() < 1) {
-			lbl_SinResultados.setVisible(false);
-		} else {
 			lbl_SinResultados.setVisible(true);
+		} else {
+			lbl_SinResultados.setVisible(false);
 		}
 	
 		if (((ArrayList<?>) arrayusers).size() > 0) {

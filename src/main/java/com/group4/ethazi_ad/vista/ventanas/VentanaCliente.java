@@ -33,6 +33,7 @@ public class VentanaCliente extends JDialog {
 	private JTextField txt_pass;
 	private static JLabel lbl_error;
 	private JTextField txt_Dni;
+	private  String  passcigrada;
 
 	public static JTextField getTxt_Nick() {
 		return txt_Nick;
@@ -64,7 +65,13 @@ public class VentanaCliente extends JDialog {
 	 */
 	public VentanaCliente(final Object usuario, final int x, final int y, final int modo) {
 		super(frame, true);
-		final String  passcigrada = ((Cliente) usuario).getPass();
+
+passcigrada = new String ("");
+
+		if (modo == VentanaCliente.EDITUSER) {
+			passcigrada= ((Cliente) usuario).getPass();
+		}
+
 		setUndecorated(true);
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -177,10 +184,11 @@ public class VentanaCliente extends JDialog {
 		txt_Dni.setColumns(10);
 
 		JButton btn_guardar = new JButton();
+
 		btn_guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (modo == 1) {
+				if (modo == NEWUSER) {
 
 					Cliente cliente = new Cliente(0, txt_Nick.getText(), txt_Dni.getText(), txt_pass.getText(),
 							txt_correo.getText());

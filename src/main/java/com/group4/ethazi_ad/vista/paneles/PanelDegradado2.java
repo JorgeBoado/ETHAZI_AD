@@ -21,7 +21,7 @@ public class PanelDegradado2 extends JPanel {
 
 		g.setColor(Color.GRAY);
 		g.drawLine(26, 60, 415, 60);
-		g.setColor(Color.DARK_GRAY);
+		g.setColor(new Color (100,100,100));
 		g.drawLine(26, 190, 415, 190);
 
 	}
