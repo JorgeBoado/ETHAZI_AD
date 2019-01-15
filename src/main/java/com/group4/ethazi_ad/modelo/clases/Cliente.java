@@ -1,6 +1,8 @@
 package com.group4.ethazi_ad.modelo.clases;
 
 import com.group4.ethazi_ad.modelo.constantes.Literales;
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.io.Serializable;
 
 public class Cliente implements Serializable {
@@ -57,7 +59,7 @@ public class Cliente implements Serializable {
 
 	public String getPass() { return pass; }
 
-	public void setPass(String pass) { this.pass = pass; }
+	public void setPass(String pass) { this.pass = DigestUtils.sha256Hex(pass); }
 
 	public String getEmail() { return email; }
 

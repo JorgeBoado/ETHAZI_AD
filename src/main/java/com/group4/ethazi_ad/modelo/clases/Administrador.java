@@ -2,6 +2,7 @@ package com.group4.ethazi_ad.modelo.clases;
 
 import java.io.Serializable;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
+import org.apache.commons.codec.digest.DigestUtils;
 
 
 public class Administrador implements Serializable {
@@ -61,7 +62,7 @@ public class Administrador implements Serializable {
 	}
 
 	public void setPass(String pass) {
-		this.pass = pass;
+		this.pass = DigestUtils.sha256Hex(pass);
 	}
 
 	public String getRole() {
