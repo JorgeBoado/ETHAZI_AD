@@ -32,9 +32,13 @@ public abstract class Literales {
                 {"hibernate.connection.username", "gp4"},
                 {"hibernate.connection.password", "MmlYOc8DvJXQns7D"},
                 {"hibernate.dialect", "org.hibernate.dialect.MySQLDialect"},
-                {"hibernate.show_sql", "false"},
+                {"hibernate.show_sql", "true"},
+                {"hibernate.generate_statistics", "true"},
                 {"hibernate.hbm2ddl.auto", "update"},
+                {"hibernate.c3p0.min_size","1"},
+                {"hibernate.c3p0.max_size","100"},
                 {"hibernate.current_session_context_class", "thread"}
+
         };
         public static final String[] MAPPERS = {
                 "Cliente.hbm.xml",
@@ -72,8 +76,8 @@ public abstract class Literales {
     	public static final String SEARCH = "Introduce nombre, nick...";
     	public static final String FIND = "Buscar";
     	public static final String NEWUSER = "Nuevo usuario";
-    	public static final String OFF = "Cerrar sesión"; 
-    	public static final String NEXTPAGE = "Pá¡gina siguiente"; 
-    	public static final String LASTPAGE = "Pá¡gina anterior"; 
+    	public static final String OFF = "Cerrar sesiï¿½n"; 
+    	public static final String NEXTPAGE = "Pï¿½gina siguiente"; 
+    	public static final String LASTPAGE = "Pï¿½gina anterior"; 
     }
 }

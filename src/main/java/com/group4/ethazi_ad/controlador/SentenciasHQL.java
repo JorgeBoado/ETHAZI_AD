@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase SentenciasHQL
@@ -161,22 +162,26 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
      * @return :Una lista de administradores
      */
     public static ArrayList<Administrador> select_Admins_Contain_Nick(String busqueda, String tipo) {
-        Session session = SessionManager.getSession();
+        Session session = SessionManager.getInstance().getFactory().openSession();
         Query<Cliente> query = session.createQuery("from Administrador where nick like :nick or name like :name and role = :role");
         query.setParameter(Tablas.Administradores.NICK, "%" + busqueda + "%");
         query.setParameter(Tablas.Administradores.NAME, "%" + busqueda + "%");
         query.setParameter(Tablas.Administradores.ROLE, tipo);
 
-        ArrayList<Administrador> a = getAdministradors(session, query);
+
+        ArrayList<Administrador> a = getAdministradors(query.list());
         System.out.println("Se han encontrado " + a.size() + " usuarios");
+        session.close();
         return a;
     }
 
-    private static ArrayList<Administrador> getAdministradors(Session session, Query query) {
+    private static ArrayList<Administrador> getAdministradors(List lista) {
         ArrayList<Administrador> admins = new ArrayList<>();
+
+
         try{
-            for (int i = 0; i < query.list().size(); i++) {
-                admins.add((Administrador) query.list().get(i));
+            for (int i = 0; i <lista.size(); i++) {
+                admins.add((Administrador) lista.get(i));
             }
         }
         catch (PersistenceException e){
@@ -192,14 +197,15 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
      * @return lista de administradores
      */
     public static ArrayList<Administrador> select_Admins_Contain_Admin(Administrador admin) {
-        Session session = SessionManager.getSession();
+        Session session = SessionManager.getInstance().getFactory().openSession();
         @SuppressWarnings("unchecked")
 		Query<Administrador> query = session.createQuery("from Administrador where nick like :nick and  role like :role and pass like :pass");//
         //query.setString("id", "%"+admin.getId()+"%");
         query.setParameter("nick", admin.getNick() );
         query.setParameter("role", "%" + admin.getRole() + "%");
         query.setParameter("pass", "%" + admin.getPass() + "%");
-        ArrayList<Administrador> a = getAdministradors(session, query);
+        ArrayList<Administrador> a = getAdministradors(query.list());
+        session.close();
         return a;
     }
     
@@ -209,7 +215,7 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
         Query<Cliente> query = session.createQuery("from Administrador where role = :role");
 
         query.setParameter("role", Literales.AdminsLiterals.EDITOR);
-        ArrayList<Administrador> a = getAdministradors(session, query);
+        ArrayList<Administrador> a = getAdministradors(query.list());
        
     
         return a;

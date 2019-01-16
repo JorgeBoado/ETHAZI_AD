@@ -35,7 +35,7 @@ public class VentanaLog extends JFrame {
 			public void run() {
 				try {
 					
-					SessionManager.createSession();
+					SessionManager.getInstance();
 					frame = new VentanaLog();
 					// Esto va al logger TODO
 					frame.addWindowListener(new WindowAdapter() {
