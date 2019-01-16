@@ -3,6 +3,7 @@ package com.group4.ethazi_ad.vista.ventanas;
 import com.group4.ethazi_ad.controlador.Control;
 import com.group4.ethazi_ad.controlador.SentenciasHQL;
 import com.group4.ethazi_ad.controlador.configuracion.SessionManager;
+import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.paneles.*;
 
@@ -29,7 +30,6 @@ public class VentanaPrincipal extends JFrame {
 	private static ButtonGroup buttonGroup = new ButtonGroup();
 	private static int x;
 	private static int y;
-
 	public static JRadioButton getRdbtnClientes() {
 		return rdbtnClientes;
 	}
@@ -114,14 +114,15 @@ public class VentanaPrincipal extends JFrame {
 	private static JButton btn_off;
 	private static ArrayList<Object> usuarios = new ArrayList<Object>();
 
-	public static void main(String[] args) {
+	public static void sessionIniciada(final Administrador admin) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					// LookAndFeel();
-					SessionManager.createSession();
-					frame = new VentanaPrincipal();
-					// Esto va al logger TODO
+					
+					
+					frame = new VentanaPrincipal(admin);
+			
 					frame.addWindowListener(new WindowAdapter() {
 						public void windowOpened(WindowEvent e) {
 							txField_buscar.requestFocus();
@@ -154,7 +155,7 @@ public class VentanaPrincipal extends JFrame {
 	 * Create the frame
 	 */
 	@SuppressWarnings("unchecked")
-	public VentanaPrincipal() {
+	public VentanaPrincipal(final Administrador administrador) {
 		setUndecorated(true);
 		setResizable(false);
 

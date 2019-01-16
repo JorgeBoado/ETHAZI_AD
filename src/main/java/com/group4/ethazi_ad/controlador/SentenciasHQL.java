@@ -193,10 +193,12 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
      */
     public static ArrayList<Administrador> select_Admins_Contain_Admin(Administrador admin) {
         Session session = SessionManager.getSession();
-        session.beginTransaction();
-        Query<Cliente> query = session.createQuery("from Administrador where nick = :nick ");
-        query.setString("id", "%"+admin.getId()+"%");
-        query.setParameter("nick", "%" + admin.getNick() + "%");
+        @SuppressWarnings("unchecked")
+		Query<Administrador> query = session.createQuery("from Administrador where nick like :nick and  role like :role and pass like :pass");//
+        //query.setString("id", "%"+admin.getId()+"%");
+        query.setParameter("nick", admin.getNick() );
+        query.setParameter("role", "%" + admin.getRole() + "%");
+        query.setParameter("pass", "%" + admin.getPass() + "%");
         ArrayList<Administrador> a = getAdministradors(session, query);
         return a;
     }
@@ -209,7 +211,7 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
         query.setParameter("role", Literales.AdminsLiterals.EDITOR);
         ArrayList<Administrador> a = getAdministradors(session, query);
        
-        session.close();
+    
         return a;
     }
 }

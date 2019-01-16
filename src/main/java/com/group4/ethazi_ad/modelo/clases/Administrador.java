@@ -82,8 +82,8 @@ public class Administrador implements Serializable {
 		datos += Literales.AdminsLiterals.T_ADMIN + this.role;
 		return datos;
 	}
-	public String cifrar(){
-		return DigestUtils.sha256Hex(this.pass);
+	public void cifrar(){
+	this.pass = DigestUtils.sha256Hex(this.pass);
 	}
 
 }

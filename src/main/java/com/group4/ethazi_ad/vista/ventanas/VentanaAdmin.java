@@ -140,7 +140,7 @@ public class VentanaAdmin extends JDialog {
 		txt_pass.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txt_pass.setHorizontalAlignment(SwingConstants.LEFT);
 		txt_pass.setColumns(10);
-		txt_pass.setBounds(81, 154, 333, 20);
+		txt_pass.setBounds(81, 150, 333, 25);
 
 		txt_Nick = new ModernTXField();
 		if (modo == 2) {
@@ -148,7 +148,7 @@ public class VentanaAdmin extends JDialog {
 		}
 		txt_Nick.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txt_Nick.setHorizontalAlignment(SwingConstants.LEFT);
-		txt_Nick.setBounds(227, 80, 187, 20);
+		txt_Nick.setBounds(227, 76, 187, 25);
 		contentPane.add(txt_Nick);
 		txt_Nick.setColumns(10);
 
@@ -159,7 +159,7 @@ public class VentanaAdmin extends JDialog {
 		txtNames.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtNames.setHorizontalAlignment(SwingConstants.LEFT);
 		txtNames.setColumns(10);
-		txtNames.setBounds(227, 118, 187, 20);
+		txtNames.setBounds(227, 114, 187, 25);
 		contentPane.add(txtNames);
 
 		contentPane.add(txt_pass);

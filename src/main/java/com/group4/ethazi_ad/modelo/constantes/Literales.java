@@ -63,16 +63,17 @@ public abstract class Literales {
     	public static final String FIZQUIERDAICO = "fizquierda.png";
 		public static final String SAVEICO = "saveico.png";
 		public static final String LOGICO = "/logico.png";
+		public static final String BUSINESSICO = "/businessico.png";
     }
     
     public static class ToolTips{
        	public static final String EDITUSER = "Editar usuario ";
     	public static final String DELETEUSER = "Borrar usuario ";
-    	public static final String SEARCH = "Introduce nombre o nick";
+    	public static final String SEARCH = "Introduce nombre, nick...";
     	public static final String FIND = "Buscar";
     	public static final String NEWUSER = "Nuevo usuario";
-    	public static final String OFF = "Cerrar sesiÃ³n"; 
-    	public static final String NEXTPAGE = "PÃ¡gina siguiente"; 
-    	public static final String LASTPAGE = "PÃ¡gina anterior"; 
+    	public static final String OFF = "Cerrar sesión"; 
+    	public static final String NEXTPAGE = "Pá¡gina siguiente"; 
+    	public static final String LASTPAGE = "Pá¡gina anterior"; 
     }
 }
