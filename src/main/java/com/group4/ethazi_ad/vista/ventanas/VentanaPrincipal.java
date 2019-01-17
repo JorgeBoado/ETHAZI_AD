@@ -33,7 +33,7 @@ public class VentanaPrincipal extends JFrame {
 	public static JRadioButton getRdbtnClientes() {
 		return rdbtnClientes;
 	}
-
+private static int rdb = 1;
 	public static void setRdbtnClientes(JRadioButton rdbtnClientes) {
 		VentanaPrincipal.rdbtnClientes = rdbtnClientes;
 	}
@@ -112,7 +112,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	private static JButton btn_off;
-	private static ArrayList<Object> usuarios = new ArrayList<Object>();
+	private static ArrayList<Object> usuarios = new ArrayList<>();
 
 	public static void sessionIniciada(final Administrador admin) {
 		EventQueue.invokeLater(new Runnable() {
@@ -174,8 +174,8 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(pa_contenedor);
 		pa_contenedor.setLayout(new CardLayout(0, 0));
 
-		usuarios = (ArrayList<Object>) ((ArrayList<?>) SentenciasHQL.select_Admins_Contain_Nick("la", "editor"));
-
+		usuarios = (ArrayList<Object>) ((ArrayList<?>) SentenciasHQL.select_Admins_Contain_Nick("", "editor"));
+		lastFind = "";
 		crearPaneles();
 
 	}
@@ -345,7 +345,14 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				Control.control(Control.UPDATELIST, null);
+				txField_buscar.requestFocus();
+
+				if(rdb != 1){
+					Control.control(Control.UPDATELIST, 1);
+				}
+				rdb = 1;
+
+
 			}
 		});
 
@@ -362,7 +369,17 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				Control.control(Control.UPDATELIST, null);
+
+				txField_buscar.requestFocus();
+
+
+				if(rdb != 2){
+					Control.control(Control.UPDATELIST, 1);
+				}
+				rdb = 2;
+
+
+
 			}
 		});
 		rdbtnClientes.setForeground(Color.WHITE);

@@ -32,36 +32,40 @@ public class SentenciasHQL<pass> {
      * TODO
      */
     public static void insert_User(Cliente cliente) {
-        Session session = SessionManager.getSession();
+        Session session = SessionManager.getInstance().getFactory().openSession();
         session.save(cliente);  //Inserta los clientes
         session.getTransaction().commit();
+        session.close();
     }
 
     /**
      * TODO
      */
-    public static void insert_User(Administrador admin) throws Exception {
-        Session session = SessionManager.getSession();
+    public static void insert_User(Administrador admin)  {
+        Session session = SessionManager.getInstance().getFactory().openSession();
         session.save(admin);  //Inserta los admin
         session.getTransaction().commit();
+        session.close();
     }
 
     /**
      * TODO
      */
     public static void modify_User(final Administrador admin) {
-        Session session = SessionManager.getSession();
+        Session session = SessionManager.getInstance().getFactory().openSession();
         session.update(admin);  //Modifica el admin
         session.getTransaction().commit();
+        session.close();
     }
 
     /**
      * TODO
      */
     public static void modify_User(Cliente cliente) {
-        Session session = SessionManager.getSession();
+        Session session = SessionManager.getInstance().getFactory().openSession();
         session.update(cliente);  //Modifica el cliente
         session.getTransaction().commit();
+        session.close();
     
     }
 
@@ -69,9 +73,10 @@ public class SentenciasHQL<pass> {
      * TODO
      */
     public static void delele_User(Administrador admin) {
-        Session session = SessionManager.getSession();
+        Session session = SessionManager.getInstance().getFactory().openSession();
         session.delete(admin);  //borra el admin
         session.getTransaction().commit();
+        session.close();
    
     }
 
@@ -79,18 +84,20 @@ public class SentenciasHQL<pass> {
      * TODO
      */
     public static void delete_User(Cliente cliente) {
-        Session session = SessionManager.getSession();
+        Session session = SessionManager.getInstance().getFactory().openSession();
         session.delete(cliente);  //borra el cliente
         session.getTransaction().commit();
+        session.close();
     }
 
     /**
      * TODO
      */
     public static Administrador select_User(Administrador admin) {
-        Session session = SessionManager.getSession();
+        Session session = SessionManager.getInstance().getFactory().openSession();
         int id = admin.getId();
         admin = session.get(Administrador.class, id);
+        session.close();
         return admin;
     }
 
@@ -98,10 +105,11 @@ public class SentenciasHQL<pass> {
      * TODO
      */
     public static Cliente select_User(Cliente cliente) {
-        Session session = SessionManager.getSession();
+        Session session = SessionManager.getInstance().getFactory().openSession();
         session.beginTransaction();
         int id = cliente.getId();
         cliente = session.get(Cliente.class, id);
+        session.close();
         return cliente;
     }
 
@@ -116,27 +124,26 @@ public class SentenciasHQL<pass> {
      * @return :Una lista de clientes
      */
     public static ArrayList<Cliente> select_Clients_Contain_Search(String busqueda) {
-        Session session = SessionManager.getSession();
-        @SuppressWarnings("unchecked")
+        Session session = SessionManager.getInstance().getFactory().openSession();
 		Query<Cliente> query = session.createQuery("from Cliente where nick like :nick or email like :email or dni like :dni");
         query.setParameter(Tablas.Clientes.NICK, "%" + busqueda + "%");
         query.setParameter(Tablas.Clientes.EMAIL, "%" + busqueda + "%");
         query.setParameter(Tablas.Clientes.DNI, "%" + busqueda + "%");
-        return getClientes(session, query);
+        ArrayList<Cliente> c = getClientes(query.list());
+        session.close();
+        return c;
     }
 
-    private static ArrayList<Cliente> getClientes(Session session, Query query) {
+    private static ArrayList<Cliente> getClientes(List lista) {
         ArrayList<Cliente> clientes = new ArrayList<>();
         try{
-
-            for (int i = 0; i < query.list().size(); i++) {
-                clientes.add((Cliente) query.list().get(i));
+            for (int i = 0; i <lista.size(); i++) {
+                clientes.add((Cliente) lista.get(i));
             }
         }
         catch (PersistenceException e){
-            System.out.println("No se encontraron clientes");
+            System.out.println(Literales.Mensajes.NORESULTS);
         }
-System.out.println("Se han encontrado " + clientes.size() + " clientes");
         return clientes;
     }
 
@@ -147,7 +154,8 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
         query.setParameter(Tablas.Clientes.NICK, "%" + client.getNick() + "%");
         query.setParameter(Tablas.Clientes.EMAIL, "%" + client.getEmail() + "%");
         query.setParameter(Tablas.Clientes.ID, client.getId());
-        return getClientes(session, query);
+        ArrayList<Cliente> c = getClientes(query.list());
+        return c;
     }
 
     /**
@@ -167,8 +175,6 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
         query.setParameter(Tablas.Administradores.NICK, "%" + busqueda + "%");
         query.setParameter(Tablas.Administradores.NAME, "%" + busqueda + "%");
         query.setParameter(Tablas.Administradores.ROLE, tipo);
-
-
         ArrayList<Administrador> a = getAdministradors(query.list());
         System.out.println("Se han encontrado " + a.size() + " usuarios");
         session.close();
@@ -177,8 +183,6 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
 
     private static ArrayList<Administrador> getAdministradors(List lista) {
         ArrayList<Administrador> admins = new ArrayList<>();
-
-
         try{
             for (int i = 0; i <lista.size(); i++) {
                 admins.add((Administrador) lista.get(i));
@@ -208,16 +212,6 @@ System.out.println("Se han encontrado " + clientes.size() + " clientes");
         session.close();
         return a;
     }
-    
-    public static ArrayList<Administrador> select_all_Admins() {
-        Session session = SessionManager.getSession();
-        session.beginTransaction();
-        Query<Cliente> query = session.createQuery("from Administrador where role = :role");
+;
 
-        query.setParameter("role", Literales.AdminsLiterals.EDITOR);
-        ArrayList<Administrador> a = getAdministradors(query.list());
-       
-    
-        return a;
-    }
 }

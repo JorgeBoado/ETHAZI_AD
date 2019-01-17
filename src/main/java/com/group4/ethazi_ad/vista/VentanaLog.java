@@ -29,15 +29,20 @@ public class VentanaLog extends JFrame {
 	private JButton btn_iniciar;
 	private static int x;
 	private static int y;
-
+	static boolean threadEND = false;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
-					SessionManager.getInstance();
+					Thread thread = new Thread(){
+							public void run(){
+								SessionManager.getInstance();
+								threadEND = true;
+						}
+					};
+					thread.start();
 					frame = new VentanaLog();
-					// Esto va al logger TODO
+
 					frame.addWindowListener(new WindowAdapter() {
 						public void windowOpened(WindowEvent e) {
 							tf_nick.requestFocus();
@@ -81,22 +86,25 @@ public class VentanaLog extends JFrame {
 				btn_iniciar.setFocusable(false);
 				btn_iniciar.setFocusable(true);
 				tf_nick.requestFocus();
-				try {
-					Administrador admin = new Administrador(0, tf_nick.getText(), tf_pass.getText(),
-							Literales.AdminsLiterals.ADMINISTRADOR, "");
-					admin.cifrar();
-					// TODO verificar
-					if (SentenciasHQL.select_Admins_Contain_Admin(admin).size() == 1) {
-						setVisible(false);
-						VentanaPrincipal.sessionIniciada(admin);
-						dispose();
-					}
-					else {
+				if (threadEND){
+					try {
+						Administrador admin = new Administrador(0, tf_nick.getText(), tf_pass.getText(),
+								Literales.AdminsLiterals.ADMINISTRADOR, "");
+						admin.cifrar();
+						// TODO verificar
+						if (SentenciasHQL.select_Admins_Contain_Admin(admin).size() == 1) {
+							setVisible(false);
+							VentanaPrincipal.sessionIniciada(admin);
+							dispose();
+						}
+						else {
+							lbl_error.setVisible(true);
+						}
+					} catch (Exception e) {
 						lbl_error.setVisible(true);
+						e.printStackTrace();
 					}
-				} catch (Exception e) {
-					lbl_error.setVisible(true);
-					e.printStackTrace();
+
 				}
 
 			}
@@ -133,10 +141,13 @@ public class VentanaLog extends JFrame {
 
 		btn_off.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btn_off.setFocusable(false);
-				btn_off.setFocusable(true);
-				SessionManager.disconnect();
-				dispose();
+				if (threadEND){
+					btn_off.setFocusable(false);
+					btn_off.setFocusable(true);
+					SessionManager.disconnect();
+					dispose();
+				}
+
 			}
 		});
 		btn_off.setBounds(388, 0, 66, 50);
