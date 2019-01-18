@@ -1,24 +1,19 @@
 package com.group4.ethazi_ad.vista.ventanas;
 
 import com.group4.ethazi_ad.controlador.Control;
-import com.group4.ethazi_ad.controlador.SentenciasHQL;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.paneles.ModernTXField;
 import com.group4.ethazi_ad.vista.paneles.PanelDegradado2;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.awt.event.KeyAdapter;
 
 public class VentanaAdmin extends JDialog {
-
-	/**
-	 * 
-	 */
 
 	public static final int NEWUSER = 1;
 	public static final int EDITUSER = 2;
@@ -27,20 +22,20 @@ public class VentanaAdmin extends JDialog {
 	public final int CREAR = 1;
 	private static JButton btn_anterior;
 	static VentanaAdmin frame;
-	private static JTextField txt_Nick;
-	private JTextField txtNames;
-	private JTextField txt_pass;
+	private static ModernTXField txt_Nick;
+	private ModernTXField txtNames;
+	private ModernTXField txt_pass;
 	private static JLabel lbl_error;
-
+	private String passcigrada;
 	public static JTextField getTxt_Nick() {
 		return txt_Nick;
 	}
 
-	public static void setTxt_Nick(JTextField txt_Nick) {
+	public static void setTxt_Nick(ModernTXField txt_Nick) {
 		VentanaAdmin.txt_Nick = txt_Nick;
 	}
 
-	public static void adminFrame(final Object usuario,final int modo,final int x,final int y) {
+	public static void adminFrame(final Object usuario, final int modo, final int x, final int y) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -60,7 +55,7 @@ public class VentanaAdmin extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaAdmin(final Object usuario,final int x,final int y,final int modo) {
+	public VentanaAdmin(final Object usuario, final int x, final int y, final int modo) {
 		super(frame, true);
 		setUndecorated(true);
 		setResizable(false);
@@ -130,19 +125,23 @@ public class VentanaAdmin extends JDialog {
 		lbl_error.setForeground(new Color(255, 0, 0));
 		lbl_error.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_error.setBounds(41, 212, 233, 14);
+		
 		lbl_error.setVisible(false);
 		contentPane.add(lbl_error);
 
-		txt_pass = new ModernTXField();
+		txt_pass = new ModernTXField(16);
+
 		if (modo == 2) {
 			txt_pass.setText(((Administrador) usuario).getPass());
 		}
+	
 		txt_pass.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txt_pass.setHorizontalAlignment(SwingConstants.LEFT);
-		txt_pass.setColumns(10);
+		txt_pass.setColumns(16);
 		txt_pass.setBounds(81, 150, 333, 25);
+		contentPane.add(txt_pass);
 
-		txt_Nick = new ModernTXField();
+		txt_Nick = new ModernTXField(16);
 		if (modo == 2) {
 			txt_Nick.setText(((Administrador) usuario).getNick());
 		}
@@ -152,7 +151,10 @@ public class VentanaAdmin extends JDialog {
 		contentPane.add(txt_Nick);
 		txt_Nick.setColumns(10);
 
-		txtNames = new ModernTXField();
+		txtNames = new ModernTXField(20);
+		txtNames.addKeyListener(new KeyAdapter() {
+
+		});
 		if (modo == 2) {
 			txtNames.setText(((Administrador) usuario).getName());
 		}
@@ -162,7 +164,6 @@ public class VentanaAdmin extends JDialog {
 		txtNames.setBounds(227, 114, 187, 25);
 		contentPane.add(txtNames);
 
-		contentPane.add(txt_pass);
 		JButton btn_guardar = new JButton();
 		btn_guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -171,30 +172,17 @@ public class VentanaAdmin extends JDialog {
 
 					Administrador admin = new Administrador(0, txt_Nick.getText(), txt_pass.getText(),
 							Literales.AdminsLiterals.EDITOR, txtNames.getText());
-					try {
-						SentenciasHQL.insert_User(admin);
-						Control.control(Control.UPDATELIST, null);
-						dispose();
-					} catch (Exception e) {
-						e.printStackTrace();
-						lbl_error.setVisible(true);
-						Toolkit.getDefaultToolkit().beep();
-					}
+					Control.control(Control.NEWADMIN, admin);
 
 				} else {
 
 					((Administrador) usuario).setname(txtNames.getText());
 					((Administrador) usuario).setNick(txt_Nick.getText());
 					((Administrador) usuario).setPass(txt_pass.getText());
-					try {
-						SentenciasHQL.modify_User(((Administrador) usuario));
-						Control.control(Control.UPDATELIST, null);
-						dispose();
-					} catch (Exception e) {
-						e.printStackTrace();
-						lbl_error.setVisible(true);
-						Toolkit.getDefaultToolkit().beep();
+					if (!passcigrada.equals(((Administrador) usuario).getPass())) {
+						((Administrador) usuario).cifrar();
 					}
+					Control.control(Control.MODADMIN, usuario);
 
 				}
 			}
@@ -211,4 +199,15 @@ public class VentanaAdmin extends JDialog {
 		contentPane.add(btn_guardar);
 
 	}
+
+	public static JLabel getLbl_error() {
+		return lbl_error;
+	}
+
+	public static void setLbl_error(JLabel lbl_error) {
+		VentanaAdmin.lbl_error = lbl_error;
+	}
+
 }
+	
+

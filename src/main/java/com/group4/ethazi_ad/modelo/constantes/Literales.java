@@ -31,6 +31,7 @@ public abstract class Literales {
                 {"hibernate.connection.url","jdbc:mariadb://kasserver.synology.me:3307/reto_gp4"},
                 {"hibernate.connection.username", "gp4"},
                 {"hibernate.connection.password", "MmlYOc8DvJXQns7D"},
+                {"hibernate.connection.autocommit", "true"},
                 {"hibernate.dialect", "org.hibernate.dialect.MySQLDialect"},
                 {"hibernate.show_sql", "true"},
                 {"hibernate.generate_statistics", "true"},

@@ -27,20 +27,6 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-
-	/**
-	 * Constructor de Clientes
-	 * <p>
-	 * Este constructor crea el objeto solo con claves primarias
-	 * para facilitar las selects individuales mediante ORM
-	 *
-	 * @param: numero de identificacion
-	 */
-	public Cliente(int id) {
-		super();
-		this.id = id;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -92,8 +78,7 @@ public class Cliente implements Serializable {
 	}
 
 	public void cifrar() {
-		this.pass =DigestUtils.sha256Hex(this.pass);
-
+		this.pass = DigestUtils.sha256Hex(this.pass);
 
 	}
 }

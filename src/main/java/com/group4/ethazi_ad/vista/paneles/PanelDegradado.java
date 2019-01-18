@@ -1,16 +1,39 @@
 package com.group4.ethazi_ad.vista.paneles;
 
 import javax.swing.*;
+
+import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
+
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class PanelDegradado extends JPanel {
-	/**
-	 * 
-	 */
+	private static int y;
+	private static int x;
+
+	public PanelDegradado() {
+		super();
+		addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+				Point point = MouseInfo.getPointerInfo().getLocation();
+				VentanaPrincipal.getFrame().setLocation(point.x - x, point.y - y);
+			}
+		});
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				x = e.getX();
+				y = e.getY();
+			}
+		});
+	}
+
 	private static final long serialVersionUID = 1L;
 	private Color color1 = new Color(145, 145, 145);
-	private Color color2 = new Color(50,50,50);
-
+	private Color color2 = new Color(50, 50, 50);
 
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();

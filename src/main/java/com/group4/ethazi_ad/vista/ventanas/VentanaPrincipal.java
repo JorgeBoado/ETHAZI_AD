@@ -1,18 +1,14 @@
 package com.group4.ethazi_ad.vista.ventanas;
 
 import com.group4.ethazi_ad.controlador.Control;
-import com.group4.ethazi_ad.controlador.SentenciasHQL;
-import com.group4.ethazi_ad.controlador.configuracion.SessionManager;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.paneles.*;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -21,19 +17,30 @@ public class VentanaPrincipal extends JFrame {
 	private static String lastFind;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private static JTextField txField_buscar;
+	private static TFbuscar txField_buscar;
 	private static JPanel pa_contenedor = new JPanel();
 	private static PanelUsuarios pa_buscarUsuarios;
 	private static JButton btn_buscar;
 	private static VentanaPrincipal frame;
+	private static PanelDegradado pa_barraHerramientas;
 	private static JButton btn_newUser;
 	private static ButtonGroup buttonGroup = new ButtonGroup();
-	private static int x;
-	private static int y;
+	private static JButton btn_off;
+
+	public static VentanaPrincipal getFrame() {
+		return frame;
+	}
+
+	public static void setFrame(VentanaPrincipal frame) {
+		VentanaPrincipal.frame = frame;
+	}
+
 	public static JRadioButton getRdbtnClientes() {
 		return rdbtnClientes;
 	}
-private static int rdb = 1;
+
+	private static int rdb = 1;
+
 	public static void setRdbtnClientes(JRadioButton rdbtnClientes) {
 		VentanaPrincipal.rdbtnClientes = rdbtnClientes;
 	}
@@ -78,20 +85,11 @@ private static int rdb = 1;
 		VentanaPrincipal.btn_off = btn_off;
 	}
 
-	public static Object getUsuarios() {
-		return usuarios;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static void setUsuarios(Object a) {
-		VentanaPrincipal.usuarios = (ArrayList<Object>) a;
-	}
-
 	public static JTextField getTxField_buscar() {
 		return txField_buscar;
 	}
 
-	public static void setTxField_buscar(JTextField txField_buscar) {
+	public static void setTxField_buscar(TFbuscar txField_buscar) {
 		VentanaPrincipal.txField_buscar = txField_buscar;
 	}
 
@@ -111,18 +109,13 @@ private static int rdb = 1;
 		VentanaPrincipal.pa_buscarUsuarios = pa_buscarUsuarios;
 	}
 
-	private static JButton btn_off;
-	private static ArrayList<Object> usuarios = new ArrayList<>();
-
 	public static void sessionIniciada(final Administrador admin) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// LookAndFeel();
-					
-					
+
 					frame = new VentanaPrincipal(admin);
-			
+
 					frame.addWindowListener(new WindowAdapter() {
 						public void windowOpened(WindowEvent e) {
 							txField_buscar.requestFocus();
@@ -141,100 +134,50 @@ private static int rdb = 1;
 		txField_buscar.requestFocus();
 	}
 
-	public static void LookAndFeel() {
-		try {
-			// Set System L&F
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
-				| IllegalAccessException e) {
-			// handle exception
-		}
-	}
-
 	/**
 	 * Create the frame
 	 */
-	@SuppressWarnings("unchecked")
 	public VentanaPrincipal(final Administrador administrador) {
 		setUndecorated(true);
 		setResizable(false);
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 523, 574);
-		contentPane = new ShadowPane();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setBounds(0, 0, 523, 574);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
-		lanzarBarraHerramientas();
-		pa_contenedor.setBackground(new Color(35, 35, 35));
-		pa_contenedor.setBounds(0, 80, 762, 506);
-		contentPane.add(pa_contenedor);
-		pa_contenedor.setLayout(new CardLayout(0, 0));
-
-		usuarios = (ArrayList<Object>) ((ArrayList<?>) SentenciasHQL.select_Admins_Contain_Nick("", "editor"));
-		lastFind = "";
 		crearPaneles();
 
+		lastFind = "";
+		Control.control(Control.UPDATELIST, null);
+		setContentPane(contentPane);
 	}
 
 	public void crearPaneles() {
-
-		pa_buscarUsuarios = new PanelUsuarios(usuarios);
+		pa_buscarUsuarios = new PanelUsuarios(Control.getUsuarios());
+		pa_buscarUsuarios.setBounds(0, 0, 522, 500);
 		pa_buscarUsuarios.setBackground(new Color(35, 35, 35));
+		pa_contenedor.setBackground(new Color(35, 35, 35));
+		pa_contenedor.setBounds(0, 80, 762, 506);
+		pa_contenedor.setLayout(null);
 		pa_contenedor.add(pa_buscarUsuarios);
 
+		contentPane = new ShadowPane();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(null);
+		contentPane.add(pa_contenedor);
+		lanzarBarraHerramientas();
+		contentPane.add(pa_barraHerramientas);
 	}
 
 	public void lanzarBarraHerramientas() {
 
-		JPanel pa_barraHerramientas = new PanelDegradado();
+		pa_barraHerramientas = new PanelDegradado();
 		pa_barraHerramientas.setOpaque(false);
-		pa_barraHerramientas.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent arg0) {
-				Point point = MouseInfo.getPointerInfo().getLocation();
-				setLocation(point.x - x, point.y - y);
-			}
-		});
-		pa_barraHerramientas.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				x = e.getX();
-				y = e.getY();
-			}
-		});
-
 		pa_barraHerramientas.setLayout(null);
-
 		pa_barraHerramientas.setBounds(0, 0, 523, 81);
-		contentPane.add(pa_barraHerramientas);
 
-		txField_buscar = new ModernTXField();
+		txField_buscar = new TFbuscar(50);
 		txField_buscar.setAlignmentY(Component.TOP_ALIGNMENT);
 		txField_buscar.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-		txField_buscar.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					setLastFind(getTxField_buscar().getText());
-					Control.control(Control.UPDATELIST, null);
-					txField_buscar.setText("");
-				}
-				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					txField_buscar.setText("");
-				}
-				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					PanelAtrasAlante.leftPress();
-				}
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					PanelAtrasAlante.rightPress();
-				}
-			}
-		});
 		txField_buscar.setToolTipText(Literales.ToolTips.SEARCH);
 		txField_buscar.setText("");
 		txField_buscar.setHorizontalAlignment(SwingConstants.LEFT);
@@ -258,7 +201,6 @@ private static int rdb = 1;
 
 		btn_buscar.setBounds(12, 5, 50, 50);
 		btn_buscar.setToolTipText(Literales.ToolTips.FIND);
-
 		btn_buscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn_buscar.setFocusable(false);
@@ -294,21 +236,7 @@ private static int rdb = 1;
 			public void actionPerformed(ActionEvent e) {
 				btn_newUser.setFocusable(false);
 				btn_newUser.setFocusable(true);
-				Toolkit t = Toolkit.getDefaultToolkit();
-				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-				PointerInfo a = MouseInfo.getPointerInfo();
-				Point b = a.getLocation();
-				int x = (int) b.getX();
-				int y = (int) b.getY();
-				if (x > screenSize.width - 450) {
-					x = x - 450;
-				}
-				if (rdbtnEditores.isSelected()) {
-					VentanaAdmin.adminFrame(null, VentanaAdmin.NEWUSER, x, y);
-				} else {
-					VentanaCliente.clientFrame(null, VentanaCliente.NEWUSER, x, y);
-				}
-
+				Control.control(Control.NEWUSERFRAME, null);
 				txField_buscar.requestFocus();
 			}
 		});
@@ -332,9 +260,8 @@ private static int rdb = 1;
 			public void actionPerformed(ActionEvent e) {
 				btn_off.setFocusable(false);
 				btn_off.setFocusable(true);
+				Control.control(Control.EXIT, null);
 				txField_buscar.requestFocus();
-				SessionManager.disconnect();
-				dispose();
 			}
 		});
 		btn_off.setBounds(445, 5, 66, 50);
@@ -346,16 +273,12 @@ private static int rdb = 1;
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				txField_buscar.requestFocus();
-
-				if(rdb != 1){
+				if (rdb != 1) {
 					Control.control(Control.UPDATELIST, 1);
 				}
 				rdb = 1;
-
-
 			}
 		});
-
 		rdbtnEditores.setForeground(Color.WHITE);
 		rdbtnEditores.setSelected(true);
 		rdbtnEditores.setOpaque(false);
@@ -364,22 +287,15 @@ private static int rdb = 1;
 		pa_barraHerramientas.add(rdbtnEditores);
 
 		rdbtnClientes = new JRadioButton("Clientes");
-
 		rdbtnClientes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-
 				txField_buscar.requestFocus();
-
-
-				if(rdb != 2){
+				if (rdb != 2) {
 					Control.control(Control.UPDATELIST, 1);
 				}
 				rdb = 2;
-
-
-
 			}
 		});
 		rdbtnClientes.setForeground(Color.WHITE);

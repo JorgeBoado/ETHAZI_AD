@@ -1,13 +1,13 @@
-package com.group4.ethazi_ad.vista;
+package com.group4.ethazi_ad.vista.ventanas;
 
 import com.group4.ethazi_ad.controlador.SentenciasHQL;
 import com.group4.ethazi_ad.controlador.configuracion.SessionManager;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
+import com.group4.ethazi_ad.vista.paneles.ModerPassField;
 import com.group4.ethazi_ad.vista.paneles.ModernTXField;
 import com.group4.ethazi_ad.vista.paneles.PanelDegradado2;
 import com.group4.ethazi_ad.vista.paneles.PassField;
-import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -38,6 +38,7 @@ public class VentanaLog extends JFrame {
 							public void run(){
 								SessionManager.getInstance();
 								threadEND = true;
+								stop();
 						}
 					};
 					thread.start();
@@ -91,7 +92,6 @@ public class VentanaLog extends JFrame {
 						Administrador admin = new Administrador(0, tf_nick.getText(), tf_pass.getText(),
 								Literales.AdminsLiterals.ADMINISTRADOR, "");
 						admin.cifrar();
-						// TODO verificar
 						if (SentenciasHQL.select_Admins_Contain_Admin(admin).size() == 1) {
 							setVisible(false);
 							VentanaPrincipal.sessionIniciada(admin);
@@ -171,12 +171,12 @@ public class VentanaLog extends JFrame {
 		lblTitulo.setBounds(169, 24, 133, 26);
 		contentPane.add(lblTitulo);
 
-		tf_nick = new ModernTXField();
+		tf_nick = new ModernTXField(16);
 		tf_nick.setBounds(191, 98, 133, 20);
 		contentPane.add(tf_nick);
 		tf_nick.setColumns(10);
 
-		tf_pass = new PassField(16);
+		tf_pass = new ModerPassField(16,16);
 		tf_pass.setBounds(191, 139, 133, 20);
 		contentPane.add(tf_pass);
 		tf_pass.setColumns(10);
@@ -190,7 +190,6 @@ public class VentanaLog extends JFrame {
 						Administrador admin = new Administrador(0, tf_nick.getText(), tf_pass.getText(),
 								Literales.AdminsLiterals.ADMINISTRADOR, "");
 						admin.cifrar();
-						// TODO verificar
 						if (SentenciasHQL.select_Admins_Contain_Admin(admin).size() == 1) {
 							setVisible(false);
 							VentanaPrincipal.sessionIniciada(admin);

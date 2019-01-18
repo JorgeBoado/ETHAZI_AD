@@ -33,7 +33,24 @@ public class VentanaCliente extends JDialog {
 	private JTextField txt_pass;
 	private static JLabel lbl_error;
 	private JTextField txt_Dni;
-	private  String  passcigrada;
+	private String passcigrada;
+	
+
+	public static JLabel getLbl_error() {
+		return lbl_error;
+	}
+
+	public static void setLbl_error(JLabel lbl_error) {
+		VentanaCliente.lbl_error = lbl_error;
+	}
+
+	public static VentanaCliente getFrame() {
+		return frame;
+	}
+
+	public static void setFrame(VentanaCliente frame) {
+		VentanaCliente.frame = frame;
+	}
 
 	public static JTextField getTxt_Nick() {
 		return txt_Nick;
@@ -66,10 +83,10 @@ public class VentanaCliente extends JDialog {
 	public VentanaCliente(final Object usuario, final int x, final int y, final int modo) {
 		super(frame, true);
 
-passcigrada = new String ("");
+		passcigrada = new String("");
 
 		if (modo == VentanaCliente.EDITUSER) {
-			passcigrada= ((Cliente) usuario).getPass();
+			passcigrada = ((Cliente) usuario).getPass();
 		}
 
 		setUndecorated(true);
@@ -143,7 +160,7 @@ passcigrada = new String ("");
 		lbl_error.setVisible(false);
 		contentPane.add(lbl_error);
 
-		txt_pass = new ModernTXField();
+		txt_pass = new ModernTXField(16);
 		if (modo == 2) {
 			txt_pass.setText(((Cliente) usuario).getPass());
 		}
@@ -153,9 +170,9 @@ passcigrada = new String ("");
 		txt_pass.setBounds(81, 191, 333, 23);
 		contentPane.add(txt_pass);
 
-		txt_Nick = new ModernTXField();
+		txt_Nick = new ModernTXField(16);
 		if (modo == 2) {
-		txt_Nick.setText(((Cliente) usuario).getNick());
+			txt_Nick.setText(((Cliente) usuario).getNick());
 		}
 		txt_Nick.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txt_Nick.setHorizontalAlignment(SwingConstants.LEFT);
@@ -163,9 +180,9 @@ passcigrada = new String ("");
 		contentPane.add(txt_Nick);
 		txt_Nick.setColumns(10);
 
-		txt_correo = new ModernTXField();
+		txt_correo = new ModernTXField(100);
 		if (modo == 2) {
-		txt_correo.setText(((Cliente) usuario).getEmail());
+			txt_correo.setText(((Cliente) usuario).getEmail());
 		}
 		txt_correo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txt_correo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -173,9 +190,9 @@ passcigrada = new String ("");
 		txt_correo.setBounds(153, 115, 261, 23);
 		contentPane.add(txt_correo);
 
-		txt_Dni = new ModernTXField();
+		txt_Dni = new ModernTXField(16);
 		if (modo == 2) {
-		txt_Dni.setText(((Cliente) usuario).getDni());
+			txt_Dni.setText(((Cliente) usuario).getDni());
 		}
 		txt_Dni.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txt_Dni.setBounds(310, 154, 101, 23);
@@ -192,18 +209,8 @@ passcigrada = new String ("");
 
 					Cliente cliente = new Cliente(0, txt_Nick.getText(), txt_Dni.getText(), txt_pass.getText(),
 							txt_correo.getText());
-					try {
-
-							((Administrador) usuario).cifrar();
-
-						SentenciasHQL.insert_User(cliente);
-						Control.control(Control.UPDATELIST, null);
-						dispose();
-					} catch (Exception e) {
-						e.printStackTrace();
-						lbl_error.setVisible(true);
-						Toolkit.getDefaultToolkit().beep();
-					}
+					Control.control(Control.NEWCLIENT, cliente);
+					
 
 				} else {
 
@@ -211,18 +218,10 @@ passcigrada = new String ("");
 					((Cliente) usuario).setEmail(txt_correo.getText());
 					((Cliente) usuario).setPass(txt_Dni.getText());
 					((Cliente) usuario).setPass(txt_pass.getText());
-					if (!passcigrada.equals(((Cliente) usuario).getPass())){
+					if (!passcigrada.equals(((Cliente) usuario).getPass())) {
 						((Cliente) usuario).cifrar();
 					}
-					try {
-						SentenciasHQL.modify_User(((Cliente) usuario));
-						Control.control(Control.UPDATELIST, null);
-						dispose();
-					} catch (Exception e) {
-						e.printStackTrace();
-						lbl_error.setVisible(true);
-						Toolkit.getDefaultToolkit().beep();
-					}
+					Control.control(Control.MODCLIENT, usuario);
 
 				}
 			}

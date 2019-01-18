@@ -5,7 +5,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.Serializable;
 
-
 public class Administrador implements Serializable {
 
 	private static final long serialVersionUID = 1056505022894794374L;
@@ -19,14 +18,15 @@ public class Administrador implements Serializable {
 		super();
 		Object integer = new Integer(id);
 		if (!integer.equals(null)) {
-			this.id = id;		
+			this.id = id;
 		}
-	
+
 		this.nick = nick;
 		this.pass = pass;
 		this.role = role;
 		this.name = name;
 	}
+
 	public Administrador() {}
 
 	public Administrador(String nick, String pass, String role, String name) {
@@ -35,6 +35,7 @@ public class Administrador implements Serializable {
 		this.role = role;
 		this.name = name;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -50,6 +51,7 @@ public class Administrador implements Serializable {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -82,8 +84,9 @@ public class Administrador implements Serializable {
 		datos += Literales.AdminsLiterals.T_ADMIN + this.role;
 		return datos;
 	}
-	public void cifrar(){
-	this.pass = DigestUtils.sha256Hex(this.pass);
+
+	public void cifrar() {
+		this.pass = DigestUtils.sha256Hex(this.pass);
 	}
 
 }

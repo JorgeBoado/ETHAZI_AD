@@ -13,6 +13,14 @@ public class PanelUsuarios extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static ArrayList<Elemento_A_Listar> getpUsuarios() {
+		return pUsuarios;
+	}
+
+	public static void setpUsuarios(ArrayList<Elemento_A_Listar> pUsuarios) {
+		PanelUsuarios.pUsuarios = pUsuarios;
+	}
+
 	/**
 	 * Create the panel.
 	 */
@@ -129,6 +137,9 @@ public class PanelUsuarios extends JPanel {
 
 		panel_QueTieneLaLista_1.updateUI();
 	}
+	public static void cargarPanel() {
+		
+	}
 
 	public void actualizar(Object arrayusers) {
 
@@ -221,19 +232,12 @@ public class PanelUsuarios extends JPanel {
 		pa_listado.setOpaque(false);
 		pa_listado.getViewport().setOpaque(false);
 		pa_listado.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
 		pa_listado.setBounds(10, 0, 500, 448);
 		pa_listado.getVerticalScrollBar().setUnitIncrement(19);
 		pa_listado.setViewportView(panel_QueTieneLaLista_1);
-
-		// UIManager.put("ScrollBar.thumb", new ColorUIResource(Color.LIGHT_GRAY));
-
 		pa_listado.getVerticalScrollBar().validate();
 		pa_listado.validate();
-		System.out.println(pa_listado.getVerticalScrollBar().getBackground());
-
 		pa_listado.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		pa_listado.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
 	}
 }
