@@ -67,11 +67,11 @@ public class Control {
 		Administrador admin = ((Administrador)object);	
 		try {
 
-			admin.cifrar();
+
 
 			SentenciasHQL.modify_User(admin);
 			control(Control.UPDATELIST, null);
-			VentanaCliente.getFrame().dispose();
+			VentanaAdmin.getFrame().dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
 			VentanaCliente.getLbl_error().setVisible(true);
@@ -90,7 +90,7 @@ public class Control {
 
 			SentenciasHQL.insert_User(admin);
 			control(Control.UPDATELIST, null);
-			VentanaCliente.getFrame().dispose();
+			VentanaAdmin.getFrame().dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
 			VentanaAdmin.getLbl_error().setVisible(true);
@@ -104,9 +104,6 @@ public class Control {
 	private static void modClient(Object object) {
 		Cliente cliente = ((Cliente)object);	
 		try {
-
-			cliente.cifrar();
-
 			SentenciasHQL.modify_User(cliente);
 			control(Control.UPDATELIST, null);
 			VentanaCliente.getFrame().dispose();
@@ -122,9 +119,6 @@ public class Control {
 	private static void newClient(final Object object) {
 	Cliente cliente = ((Cliente)object);	
 	try {
-
-		cliente.cifrar();
-
 		SentenciasHQL.insert_User(cliente);
 		control(Control.UPDATELIST, null);
 		VentanaCliente.getFrame().dispose();
@@ -173,9 +167,6 @@ public class Control {
 					.select_Admins_Contain_Nick(VentanaPrincipal.getLastFind(), Literales.AdminsLiterals.EDITOR));
 			((ArrayList<Object>) ((ArrayList<?>) usuarios)).clear();
 			setUsuarios(((Object) a));
-			for (int i = 0; i < a.size(); i++) {
-				System.out.println(a.get(i).toString());
-			}
 
 			VentanaPrincipal.getPa_buscarUsuarios().actualizar(usuarios);
 

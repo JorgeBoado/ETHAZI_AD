@@ -209,6 +209,7 @@ public class VentanaCliente extends JDialog {
 
 					Cliente cliente = new Cliente(0, txt_Nick.getText(), txt_Dni.getText(), txt_pass.getText(),
 							txt_correo.getText());
+					cliente.cifrar();
 					Control.control(Control.NEWCLIENT, cliente);
 					
 

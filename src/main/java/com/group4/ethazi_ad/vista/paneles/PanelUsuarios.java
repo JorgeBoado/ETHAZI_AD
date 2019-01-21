@@ -205,7 +205,6 @@ public class PanelUsuarios extends JPanel {
 
 			cargarConfListado(aMostrar);
 
-			// pa_listado.getVerticalScrollBar().setUI(new BasicScrollBarUI());
 
 			add(pa_listado);
 			/* Lanzar panel de atras y alante */

@@ -7,7 +7,6 @@ import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.modelo.constantes.Tablas;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;

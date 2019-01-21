@@ -26,13 +26,17 @@ public class VentanaAdmin extends JDialog {
 	private ModernTXField txtNames;
 	private ModernTXField txt_pass;
 	private static JLabel lbl_error;
-	private String passcigrada;
+	private String passcigrada = "";
 	public static JTextField getTxt_Nick() {
 		return txt_Nick;
 	}
 
 	public static void setTxt_Nick(ModernTXField txt_Nick) {
 		VentanaAdmin.txt_Nick = txt_Nick;
+	}
+
+	public static VentanaAdmin getFrame() {
+		return frame;
 	}
 
 	public static void adminFrame(final Object usuario, final int modo, final int x, final int y) {
@@ -66,6 +70,9 @@ public class VentanaAdmin extends JDialog {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		if(modo == 2){
+			passcigrada = ((Administrador)usuario).getPass();
+		}
 
 		JLabel lbl_nick = new JLabel("Nick:");
 		lbl_nick.setForeground(Color.LIGHT_GRAY);
@@ -172,6 +179,7 @@ public class VentanaAdmin extends JDialog {
 
 					Administrador admin = new Administrador(0, txt_Nick.getText(), txt_pass.getText(),
 							Literales.AdminsLiterals.EDITOR, txtNames.getText());
+					admin.cifrar();
 					Control.control(Control.NEWADMIN, admin);
 
 				} else {
