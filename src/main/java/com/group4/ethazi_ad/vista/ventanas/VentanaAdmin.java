@@ -5,13 +5,14 @@ import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.paneles.ModernTXField;
 import com.group4.ethazi_ad.vista.paneles.PanelDegradado2;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.awt.event.KeyAdapter;
+import java.net.URL;
 
 public class VentanaAdmin extends JDialog {
 

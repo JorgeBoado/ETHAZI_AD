@@ -1,8 +1,6 @@
 package com.group4.ethazi_ad.vista.ventanas;
 
 import com.group4.ethazi_ad.controlador.Control;
-import com.group4.ethazi_ad.controlador.SentenciasHQL;
-import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.clases.Cliente;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.paneles.ModernTXField;

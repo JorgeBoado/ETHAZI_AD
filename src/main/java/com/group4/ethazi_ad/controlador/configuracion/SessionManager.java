@@ -1,11 +1,9 @@
 package com.group4.ethazi_ad.controlador.configuracion;
 
 import com.group4.ethazi_ad.modelo.constantes.Literales;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.sql.ordering.antlr.Factory;
 
 /**
  * Clase De Conexion con la BD mediante ORM

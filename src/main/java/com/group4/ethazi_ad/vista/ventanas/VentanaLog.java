@@ -7,7 +7,6 @@ import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.paneles.ModerPassField;
 import com.group4.ethazi_ad.vista.paneles.ModernTXField;
 import com.group4.ethazi_ad.vista.paneles.PanelDegradado2;
-import com.group4.ethazi_ad.vista.paneles.PassField;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

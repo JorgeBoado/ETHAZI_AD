@@ -1,7 +1,6 @@
 package com.group4.ethazi_ad.vista.paneles;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 

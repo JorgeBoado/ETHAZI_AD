@@ -1,10 +1,10 @@
 package com.group4.ethazi_ad.vista.paneles;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 import com.group4.ethazi_ad.controlador.Control;
 import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class TFbuscar extends ModernTXField{
 	

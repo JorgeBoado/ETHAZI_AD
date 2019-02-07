@@ -3,7 +3,11 @@ package com.group4.ethazi_ad.vista.ventanas;
 import com.group4.ethazi_ad.controlador.Control;
 import com.group4.ethazi_ad.modelo.clases.Administrador;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
-import com.group4.ethazi_ad.vista.paneles.*;
+import com.group4.ethazi_ad.vista.paneles.PanelDegradado;
+import com.group4.ethazi_ad.vista.paneles.PanelUsuarios;
+import com.group4.ethazi_ad.vista.paneles.ShadowPane;
+import com.group4.ethazi_ad.vista.paneles.TFbuscar;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

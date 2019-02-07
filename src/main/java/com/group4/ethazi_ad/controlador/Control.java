@@ -8,11 +8,7 @@ import com.group4.ethazi_ad.vista.ventanas.VentanaAdmin;
 import com.group4.ethazi_ad.vista.ventanas.VentanaCliente;
 import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
 
-import java.awt.Dimension;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.PointerInfo;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Control {

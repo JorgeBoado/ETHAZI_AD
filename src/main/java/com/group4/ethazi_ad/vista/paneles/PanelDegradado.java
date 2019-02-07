@@ -1,9 +1,8 @@
 package com.group4.ethazi_ad.vista.paneles;
 
-import javax.swing.*;
-
 import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
