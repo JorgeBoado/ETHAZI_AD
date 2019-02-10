@@ -19,10 +19,13 @@ import java.awt.event.*;
  */
 public class VentanaLog extends JFrame {
 
+    public static JFrame getFrame() {
+        return frame;
+    }
 
+    private static JFrame frame;
 	private static final long serialVersionUID = 1L;
 	private static 	JLabel lblNick;
-	private static JFrame frame;
 	private static PanelDegradado2 contentPane;
 	private static JTextField tf_nick;
 	private static JTextField tf_pass;
@@ -33,6 +36,7 @@ public class VentanaLog extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+			    frame = new VentanaLog();
 				try {
 					Thread thread = new Thread(){
 							public void run(){

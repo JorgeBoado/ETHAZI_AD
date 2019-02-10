@@ -6,6 +6,7 @@ import com.group4.ethazi_ad.modelo.clases.Cliente;
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.ventanas.VentanaAdmin;
 import com.group4.ethazi_ad.vista.ventanas.VentanaCliente;
+import com.group4.ethazi_ad.vista.ventanas.VentanaLog;
 import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
 
 import java.awt.*;
@@ -56,6 +57,13 @@ public class Control {
             case 4:
                 SessionManager.disconnect();
                 VentanaPrincipal.getFrame().dispose();
+                try{
+                    VentanaLog.getFrame().dispose();
+                }
+                catch (Exception e){
+
+                }
+
                 break;
             case 5:
                 newClient(object);
