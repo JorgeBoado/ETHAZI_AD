@@ -13,6 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
+/**
+ * Ventana para crear o modificar clientes
+ */
 public class VentanaCliente extends JDialog {
 
 	/**
@@ -58,6 +61,13 @@ public class VentanaCliente extends JDialog {
 		VentanaCliente.txt_Nick = txt_Nick;
 	}
 
+	/**
+	 *
+	 * @param usuario usuario clickado
+	 * @param modo si es edicion o modificaccion
+	 * @param x coordenada para abrir
+	 * @param y coordenada para abrir
+	 */
 	public static void clientFrame(final Object usuario, final int modo, final int x, final int y) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -76,7 +86,11 @@ public class VentanaCliente extends JDialog {
 	}
 
 	/**
-	 * Create the frame.
+	 *
+	 * @param usuario usuario clickado
+	 * @param modo si es edicion o modificaccion
+	 * @param x coordenada para abrir
+	 * @param y coordenada para abrir
 	 */
 	public VentanaCliente(final Object usuario, final int x, final int y, final int modo) {
 		super(frame, true);

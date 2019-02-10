@@ -8,6 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
+
+/**
+ * Panel degradado sin funcionalidad extra
+ */
 public class PanelDegradado extends JPanel {
 	private static int y;
 	private static int x;

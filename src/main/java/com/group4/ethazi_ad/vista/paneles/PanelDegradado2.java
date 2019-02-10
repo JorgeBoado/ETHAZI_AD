@@ -6,7 +6,7 @@ import java.awt.*;
 public class PanelDegradado2 extends JPanel {
 
 	/**
-	 * 
+	 * Panel degradado sin funcionalidad extra
 	 */
 	private static final long serialVersionUID = 1L;
 	private Color color1 = new Color(125, 125, 125);

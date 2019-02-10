@@ -32,6 +32,10 @@ public class SessionManager {
 		factory = config.buildSessionFactory(); // Retorna una sesion de trabajo
 	}
 
+	/**
+	 *
+	 * @return la instancia de SessionManager
+	 */
 	public static SessionManager getInstance(){
 
 		if(manager==null){
@@ -45,7 +49,7 @@ public class SessionManager {
 		return factory;
 	}
 
-	/*
+	/**
 	 *  getSession :
 	 *  
 	 *   @return : la sesion de hibernate 
@@ -58,7 +62,7 @@ public class SessionManager {
 		return session;
 	}
 
-	/*
+	/**
 	 *  disconnect :
 	 *
 	 *  Cierra la conexion cuando la aplicaccion va ha finalizar

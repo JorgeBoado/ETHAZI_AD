@@ -6,6 +6,10 @@ import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * TextField modificado para que lance hilos de busqueda para actualizar la lista de la pantalla a cada tecla
+ * quue se pulse
+ */
 public class TFbuscar extends ModernTXField{
 	
 	private static boolean activo = false;

@@ -5,6 +5,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.Serializable;
 
+/**
+ * Clase administrador
+ */
 public class Administrador implements Serializable {
 
 	private static final long serialVersionUID = 1056505022894794374L;

@@ -7,13 +7,16 @@ import com.group4.ethazi_ad.vista.paneles.PanelDegradado;
 import com.group4.ethazi_ad.vista.paneles.PanelUsuarios;
 import com.group4.ethazi_ad.vista.paneles.ShadowPane;
 import com.group4.ethazi_ad.vista.paneles.TFbuscar;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+
+/**
+ * Ventana principal
+ */
 public class VentanaPrincipal extends JFrame {
 
 	private static JRadioButton rdbtnClientes;
@@ -35,91 +38,42 @@ public class VentanaPrincipal extends JFrame {
 		return frame;
 	}
 
-	public static void setFrame(VentanaPrincipal frame) {
-		VentanaPrincipal.frame = frame;
-	}
-
-	public static JRadioButton getRdbtnClientes() {
-		return rdbtnClientes;
-	}
-
 	private static int rdb = 1;
-
-	public static void setRdbtnClientes(JRadioButton rdbtnClientes) {
-		VentanaPrincipal.rdbtnClientes = rdbtnClientes;
-	}
 
 	public static JRadioButton getRdbtnEditores() {
 		return rdbtnEditores;
 	}
-
-	public static void setRdbtnEditores(JRadioButton rdbtnEditores) {
-		VentanaPrincipal.rdbtnEditores = rdbtnEditores;
-	}
-
 	public static String getLastFind() {
 		return lastFind;
 	}
-
 	public static void setLastFind(String lastFind) {
 		VentanaPrincipal.lastFind = lastFind;
 	}
-
 	public static JButton getBtn_buscar() {
 		return btn_buscar;
 	}
-
-	public static void setBtn_buscar(JButton btn_buscar) {
-		VentanaPrincipal.btn_buscar = btn_buscar;
-	}
-
-	public static JButton getBtn_newUser() {
-		return btn_newUser;
-	}
-
-	public static void setBtn_newUser(JButton btn_newUser) {
-		VentanaPrincipal.btn_newUser = btn_newUser;
-	}
-
-	public static JButton getBtn_off() {
-		return btn_off;
-	}
-
-	public static void setBtn_off(JButton btn_off) {
-		VentanaPrincipal.btn_off = btn_off;
-	}
-
 	public static JTextField getTxField_buscar() {
 		return txField_buscar;
-	}
-
-	public static void setTxField_buscar(TFbuscar txField_buscar) {
-		VentanaPrincipal.txField_buscar = txField_buscar;
 	}
 
 	public static JPanel getPa_contenedor() {
 		return pa_contenedor;
 	}
-
-	public static void setPa_contenedor(JPanel pa_contenedor) {
-		VentanaPrincipal.pa_contenedor = pa_contenedor;
-	}
-
 	public static PanelUsuarios getPa_buscarUsuarios() {
 		return pa_buscarUsuarios;
 	}
 
-	public static void setPa_buscarUsuarios(PanelUsuarios pa_buscarUsuarios) {
-		VentanaPrincipal.pa_buscarUsuarios = pa_buscarUsuarios;
-	}
+	/**
+	 *
+	 * @param admin el que inicia la session
+	 *              abre una ventana principañ
+	 */
 
 	public static void sessionIniciada(final Administrador admin) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-
 					frame = new VentanaPrincipal(admin);
-
 					frame.addWindowListener(new WindowAdapter() {
 						public void windowOpened(WindowEvent e) {
 							txField_buscar.requestFocus();
@@ -220,7 +174,6 @@ public class VentanaPrincipal extends JFrame {
 			}
 
 		});
-		;
 
 		pa_barraHerramientas.add(btn_buscar);
 		btn_newUser = new JButton();
@@ -312,10 +265,6 @@ public class VentanaPrincipal extends JFrame {
 		buttonGroup.add(rdbtnEditores);
 
 		txField_buscar.requestFocus();
-	}
-
-	public static void remcont() {
-		pa_contenedor.remove(pa_buscarUsuarios);
 	}
 
 }

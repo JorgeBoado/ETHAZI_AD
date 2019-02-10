@@ -2,9 +2,11 @@ package com.group4.ethazi_ad.modelo.clases;
 
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import org.apache.commons.codec.digest.DigestUtils;
-
 import java.io.Serializable;
 
+/**
+ * Clase cliente
+ */
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = -8355922957048928946L;

@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 public class ModerPassField extends PassField{
 
 	/**
-	 * 
+	 *  clase para textfield con pass moderno sin funcionalidad
 	 */
 	private static final long serialVersionUID = 1L;
 

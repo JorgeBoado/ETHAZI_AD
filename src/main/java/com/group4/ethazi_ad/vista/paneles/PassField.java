@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class PassField extends JPasswordField{
 	/**
-	 * 
+	 * Jpasswordfield modificado
 	 */
 	private static final long serialVersionUID = 1L;
 

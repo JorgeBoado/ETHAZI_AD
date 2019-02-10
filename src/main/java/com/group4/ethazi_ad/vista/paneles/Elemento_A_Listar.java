@@ -16,9 +16,9 @@ import java.awt.event.MouseEvent;
 import java.net.URL;
 
 /**
- * clase : Elementos_A_Listar
+ * clase : Elementos_A_Listar paneles que segun la opcion recivida son para
+ * administradores o editores
  *
- * ve rsion :
  */
 
 public class Elemento_A_Listar extends JPanel {
@@ -42,6 +42,15 @@ public class Elemento_A_Listar extends JPanel {
 		g.drawLine(30, 74, 450, 74);
 	}
 
+	/**
+	 *
+	 * @param usuario
+	 * @param opcion
+	 *
+	 * contructor de paneles con usuarios
+	 * estos paneles tienen evento onClick para abrir ventana de edicion capturndo posicion del raton y un boton
+	 * para eliminar al usuario
+	 */
 	public Elemento_A_Listar(final Object usuario, final byte opcion) {
 		setBackground(new Color(35, 35, 35));
 		// miPaElemento_A_Listar=new JPanel();
@@ -115,8 +124,6 @@ public class Elemento_A_Listar extends JPanel {
 		btn_Eliminar.setBounds(387, 11, 63, 53);
 		add(btn_Eliminar);
 
-		
-		
 		
 		switch (opcion) {
 		case 0: {

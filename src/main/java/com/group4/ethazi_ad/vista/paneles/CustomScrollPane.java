@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 class CustomScrollPane extends JScrollPane
 {
     /**
-	 * 
+	 * Esta una clase de ScrollPane modificada para la estetica, no aporta funcionalidad
 	 */
 	private static final long serialVersionUID = 1L;
 	public CustomScrollPane () {
@@ -40,21 +40,19 @@ class CustomScrollPane extends JScrollPane
         return image;
     }
 }
+
+/**
+ *  Esta es una clase Scrollbar modificada para la estetica no aporta funcionalidad
+ */
 class CustomScrollBar extends JScrollBar
 {
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private boolean isThumbPressed;
 
     public CustomScrollBar (final int orientation, final Image thumb, final Image thumbPressed, final Image track) { 
         super (orientation);
-   
-        
 
-
-     
                addMouseListener (new MouseAdapter () {
             public void mousePressed (MouseEvent e) {
                 isThumbPressed = true;

@@ -17,183 +17,167 @@ import java.util.List;
  *
  * @author : JON
  * @version : 19/12/2018
- *          <p>
- *          Siempre que se necesite crear, modificar, recuperar o borrar
- *          registros mediante ORM se hara mediante los metodos de esta clase.
- *          </p>
- *          Los metodos de esta clase son sobrecargados.
+ * Siempre que se necesite crear, modificar, recuperar o borrar
+ * registros mediante ORM se hara mediante los metodos de esta clase.
+ *
+ * Los objetos con los tque trabaja son administradores y clientes(Editores)
  */
 public class SentenciasHQL<pass> {
+    /**
+     *
+     * @param usuario, puede ser administrador o editor
+     *
+     * inserta un usuario
+     */
 
-	/**
-	 * TODO
-	 */
-	public static void insert_User(final Object usuario) {
-		Session session = SessionManager.getInstance().getFactory().openSession();
-		session.save(usuario); // Inserta los admin
-		session.beginTransaction().commit();
-		session.close();
-	}
+    public static void insert_User(final Object usuario) {
+        Session session = SessionManager.getInstance().getFactory().openSession();
+        session.save(usuario); // Inserta los admin
+        session.beginTransaction().commit();
+        session.close();
+    }
 
-	/**
-	 * TODO
-	 */
-	public static void modify_User(Object usuario) {
-		Session session = SessionManager.getInstance().getFactory().openSession();
-		session.update(usuario); // Modifica el cliente
-		session.beginTransaction().commit();
-		session.close();
+    /**
+     *
+     * @param usuario, puede ser administrador o editor
+     *
+     * modifica un usuario
+     */
+    public static void modify_User(Object usuario) {
+        Session session = SessionManager.getInstance().getFactory().openSession();
+        session.update(usuario); // Modifica el cliente
+        session.beginTransaction().commit();
+        session.close();
+    }
 
-	}
+    /**
+     *
+     * @param usuario, puede ser administrador o editor
+     *
+     * elimina un usuario
+     */
+    public static void delele_User(Object usuario) {
+        Session session = SessionManager.getInstance().getFactory().openSession();
 
-	/**
-	 * TODO
-	 */
-	public static void delele_User(Object usuario) {
-		Session session = SessionManager.getInstance().getFactory().openSession();
+        session.delete(usuario); // borra el admin
 
-		session.delete(usuario); // borra el admin
+        session.beginTransaction().commit();
+        session.close();
+    }
 
-		session.beginTransaction().commit();
-		session.close();
 
-	}
+    /**
+     *
+     * El metodo select_Users_Contain_Search seleciona los clientes cuyo nick o
+     * email contiene la busqueda
+     * <p>
+     * pensado para cuando el usuario de la aplicacion esta escribiendo o pulsa
+     * intro al terminar
+     * </p>
+     *
+     * @param busqueda: La busqueda de un nombre o correo en un textbox
+     * @return :Una lista de clientes
+     */
+    public static ArrayList<Cliente> select_Clients_Contain_Search(String busqueda) {
+        Session session = SessionManager.getInstance().getFactory().openSession();
+        @SuppressWarnings("unchecked")
+        Query<Cliente> query = session
+                .createQuery("from Cliente where nick like :nick or email like :email or dni like :dni");
+        query.setParameter(Tablas.Clientes.NICK, "%" + busqueda + "%");
+        query.setParameter(Tablas.Clientes.EMAIL, "%" + busqueda + "%");
+        query.setParameter(Tablas.Clientes.DNI, "%" + busqueda + "%");
+        ArrayList<Cliente> c = getClientes(query.list());
+        session.close();
+        return c;
+    }
 
-	/**
-	 * TODO
-	 */
-	public static void delete_User(Cliente cliente) {
-		Session session = SessionManager.getInstance().getFactory().openSession();
-		session.delete(cliente); // borra el cliente
-		session.beginTransaction().commit();
-		session.close();
-	}
+    /**
+     *
+     * @param lista, la lista de clientes no persistente
+     * @return clientes Arraylist de clientes
+     *
+     * este metodo pasa una List a un Arraylist de clientes
+     */
+    private static ArrayList<Cliente> getClientes(List lista) {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        try {
+            for (int i = 0; i < lista.size(); i++) {
+                clientes.add((Cliente) lista.get(i));
+            }
+        } catch (PersistenceException e) {
+            System.out.println(Literales.Mensajes.NORESULTS);
+        }
+        return clientes;
+    }
 
-	/**
-	 * TODO
-	 */
-	public static Administrador select_User(Administrador admin) {
-		Session session = SessionManager.getInstance().getFactory().openSession();
-		int id = admin.getId();
-		admin = session.get(Administrador.class, id);
-		session.close();
-		return admin;
-	}
+    /**
+     * El metodo select_Users_Contain_Search seleciona los administradores cuyo nick
+     * contiene la busqueda
+     * <p>
+     * pensado para cuando el usuario de la aplicacion esta escribiendo o pulsa
+     * intro al terminar
+     * </p>
+     *
+     * @param busqueda : La busqueda de un nombre en un textbox
+     * @param busqueda : La tipo de usuario
+     * @return :Una lista de administradores
+     */
+    public static ArrayList<Administrador> select_Admins_Contain_Nick(String busqueda, String tipo) {
+        Session session = SessionManager.getInstance().getFactory().openSession();
+        Query<Cliente> query = session
+                .createQuery("from Administrador where (nick like :nick or name like :name) and role like :role");
+        query.setParameter(Tablas.Administradores.NICK, "%" + busqueda + "%");
+        query.setParameter(Tablas.Administradores.NAME, "%" + busqueda + "%");
+        query.setParameter(Tablas.Administradores.ROLE, "%" + tipo + "%");
+        ArrayList<Administrador> a = getAdministradors(query.list());
+        System.out.println("Se han encontrado " + a.size() + " usuarios");
+        session.close();
+        return a;
+    }
 
-	/**
-	 * TODO
-	 */
-	public static Cliente select_User(Cliente cliente) {
-		Session session = SessionManager.getInstance().getFactory().openSession();
-		session.beginTransaction();
-		int id = cliente.getId();
-		cliente = session.get(Cliente.class, id);
-		session.close();
-		return cliente;
-	}
+    /**
+     *
+     * @param lista, la lista de clientes no persistente
+     * @return clientes Arraylist de clientes
+     *
+     * este metodo pasa una List a un Arraylist de clientes
+     */
+    private static ArrayList<Administrador> getAdministradors(List lista) {
+        ArrayList<Administrador> admins = new ArrayList<>();
+        try {
+            for (int i = 0; i < lista.size(); i++) {
+                admins.add((Administrador) lista.get(i));
+            }
+        } catch (PersistenceException e) {
+            System.out.println(Literales.Mensajes.NORESULTS);
+        }
 
-	/**
-	 * El metodo select_Users_Contain_Search seleciona los clientes cuyo nick o
-	 * email contiene la busqueda
-	 * <p>
-	 * pensado para cuando el usuario de la aplicacion esta escribiendo o pulsa
-	 * intro al terminar
-	 * </p>
-	 * 
-	 * @param busqueda: La busqueda de un nombre o correo en un textbox
-	 * @return :Una lista de clientes
-	 */
-	public static ArrayList<Cliente> select_Clients_Contain_Search(String busqueda) {
-		Session session = SessionManager.getInstance().getFactory().openSession();
-		@SuppressWarnings("unchecked")
-		Query<Cliente> query = session
-				.createQuery("from Cliente where nick like :nick or email like :email or dni like :dni");
-		query.setParameter(Tablas.Clientes.NICK, "%" + busqueda + "%");
-		query.setParameter(Tablas.Clientes.EMAIL, "%" + busqueda + "%");
-		query.setParameter(Tablas.Clientes.DNI, "%" + busqueda + "%");
-		ArrayList<Cliente> c = getClientes(query.list());
-		session.close();
-		return c;
-	}
+        return admins;
+    }
 
-	private static ArrayList<Cliente> getClientes(List lista) {
-		ArrayList<Cliente> clientes = new ArrayList<>();
-		try {
-			for (int i = 0; i < lista.size(); i++) {
-				clientes.add((Cliente) lista.get(i));
-			}
-		} catch (PersistenceException e) {
-			System.out.println(Literales.Mensajes.NORESULTS);
-		}
-		return clientes;
-	}
+    /**
+     * seleciona los administradores cuyo nick y pass sea el mismo que el objeto que recibe
 
-	public static ArrayList<Cliente> select_Clients_Contain_Client(Cliente client) {
-		Session session = SessionManager.getSession();
+     * pensado para cuando el usuario de la aplicacion esta escribiendo o pulsa
+     * intro al terminar
+     *
+     * @param admin : el administrador que tiene q
+     * @return :Una lista de administradores
+     */
+    public static ArrayList<Administrador> select_Admins_Contain_Admin(Administrador admin) {
+        Session session = SessionManager.getInstance().getFactory().openSession();
+        @SuppressWarnings("unchecked")
+        Query<Administrador> query = session
+                .createQuery("from Administrador where nick like :nick and  role like :role and pass like :pass");//
+        // query.setString("id", "%"+admin.getId()+"%");
+        query.setParameter("nick", admin.getNick());
+        query.setParameter("role", "%" + admin.getRole() + "%");
+        query.setParameter("pass", "%" + admin.getPass() + "%");
+        ArrayList<Administrador> a = getAdministradors(query.list());
+        session.close();
+        return a;
+    }
 
-		Query<Cliente> query = session
-				.createQuery("from Cliente where nick like :nick or email like :email and id = :id");
-		query.setParameter(Tablas.Clientes.NICK, "%" + client.getNick() + "%");
-		query.setParameter(Tablas.Clientes.EMAIL, "%" + client.getEmail() + "%");
-		query.setParameter(Tablas.Clientes.ID, client.getId());
-		ArrayList<Cliente> c = getClientes(query.list());
-		return c;
-	}
-
-	/**
-	 * El metodo select_Users_Contain_Search seleciona los administradores cuyo nick
-	 * contiene la busqueda
-	 * <p>
-	 * pensado para cuando el usuario de la aplicacion esta escribiendo o pulsa
-	 * intro al terminar
-	 * </p>
-	 * 
-	 * @param busqueda : La busqueda de un nombre en un textbox
-	 * @param busqueda : La tipo de usuario
-	 * @return :Una lista de administradores
-	 */
-	public static ArrayList<Administrador> select_Admins_Contain_Nick(String busqueda, String tipo) {
-		Session session = SessionManager.getInstance().getFactory().openSession();
-		Query<Cliente> query = session
-				.createQuery("from Administrador where (nick like :nick or name like :name) and role like :role");
-		query.setParameter(Tablas.Administradores.NICK, "%" + busqueda + "%");
-		query.setParameter(Tablas.Administradores.NAME, "%" + busqueda + "%");
-		query.setParameter(Tablas.Administradores.ROLE, "%" + tipo + "%");
-		ArrayList<Administrador> a = getAdministradors(query.list());
-		System.out.println("Se han encontrado " + a.size() + " usuarios");
-		session.close();
-		return a;
-	}
-
-	private static ArrayList<Administrador> getAdministradors(List lista) {
-		ArrayList<Administrador> admins = new ArrayList<>();
-		try {
-			for (int i = 0; i < lista.size(); i++) {
-				admins.add((Administrador) lista.get(i));
-			}
-		} catch (PersistenceException e) {
-			System.out.println(Literales.Mensajes.NORESULTS);
-		}
-
-		return admins;
-	}
-
-	/**
-	 * @param admin :
-	 * @return lista de administradores
-	 */
-	public static ArrayList<Administrador> select_Admins_Contain_Admin(Administrador admin) {
-		Session session = SessionManager.getInstance().getFactory().openSession();
-		@SuppressWarnings("unchecked")
-		Query<Administrador> query = session
-				.createQuery("from Administrador where nick like :nick and  role like :role and pass like :pass");//
-		// query.setString("id", "%"+admin.getId()+"%");
-		query.setParameter("nick", admin.getNick());
-		query.setParameter("role", "%" + admin.getRole() + "%");
-		query.setParameter("pass", "%" + admin.getPass() + "%");
-		ArrayList<Administrador> a = getAdministradors(query.list());
-		session.close();
-		return a;
-	};
+    ;
 
 }

@@ -2,7 +2,6 @@ package com.group4.ethazi_ad.vista.paneles;
 
 import com.group4.ethazi_ad.modelo.constantes.Literales;
 import com.group4.ethazi_ad.vista.ventanas.VentanaPrincipal;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,11 +9,13 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 
+
+/**
+ *  Clase de panel que contiene los botones para pasar paginas
+ */
 public class PanelAtrasAlante extends JPanel {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 3155874535095371982L;
 	private static int pagina = 1;
 
@@ -24,6 +25,13 @@ public class PanelAtrasAlante extends JPanel {
 	private static JButton btn_anterior;
 	private static int maxPags;
 
+
+	/**
+	 *
+	 * @param usuarios el array de usuarios a listar
+	 * @param maxPags el limite de paginas que permiten pasar los botones
+	 *
+	 */
 	public PanelAtrasAlante(final ArrayList<Object> usuarios, final int maxPags) {
 		this.usuarios = usuarios;
 		this.maxPags = maxPags;
@@ -78,6 +86,9 @@ public class PanelAtrasAlante extends JPanel {
 
 	}
 
+	/**
+	 * Pasa pagina a la derecha
+	 */
 	public static void leftPress() {
 		
 		if (pagina > 1){
@@ -95,6 +106,10 @@ public class PanelAtrasAlante extends JPanel {
 		}
 		
 	}
+
+	/**
+	 * Pasa pagina a la izquierda
+	 */
 	public static void rightPress() {
 		if (pagina < maxPags) {
 			PanelUsuarios.up();

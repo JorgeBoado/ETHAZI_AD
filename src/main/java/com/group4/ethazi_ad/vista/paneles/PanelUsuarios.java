@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class PanelUsuarios extends JPanel {
 
 	/**
-	 * 
+	 * Panel que contiene los paneles que hacen de pagina
+	 * el panel boton atra_y_alante ejerde el control sobre este
 	 */
 	private static final long serialVersionUID = 1L;
 	public static ArrayList<Elemento_A_Listar> getpUsuarios() {
@@ -21,11 +22,8 @@ public class PanelUsuarios extends JPanel {
 		PanelUsuarios.pUsuarios = pUsuarios;
 	}
 
-	/**
-	 * Create the panel.
-	 */
 	private static ArrayList<Elemento_A_Listar> pUsuarios = new ArrayList<Elemento_A_Listar>();
-	// private static Elementos_Listados panel_QueTieneLaLista;
+
 	private static Elementos_Listados panel_QueTieneLaLista_1;
 	private static JScrollPane pa_listado;
 	private static JLabel lbl_SinResultados;
@@ -107,6 +105,14 @@ public class PanelUsuarios extends JPanel {
 
 	}
 
+	/**
+	 *
+	 * @param usuarios lista de usuarios
+	 * @param nPagina numero de pagina que muestra
+	 *
+	 *                muestra un panel con 10 usuarios
+	 */
+
 	public static void mostrar10(ArrayList<Object> usuarios, int nPagina) {
 		int cont = 0;
 		pUsuarios.clear();
@@ -141,6 +147,12 @@ public class PanelUsuarios extends JPanel {
 		
 	}
 
+	/**
+	 *
+	 * @param arrayusers lista de usuarios
+	 *
+	 *                   actualiza el panel
+	 */
 	public void actualizar(Object arrayusers) {
 
 		removeAll();
@@ -223,6 +235,13 @@ public class PanelUsuarios extends JPanel {
 
 	}
 
+
+	/**
+	 *
+	 * @param aMostrar numero de elementos que se mostraran en la pagina
+	 *
+	 *                 configura el panel
+	 */
 	public static void cargarConfListado(int aMostrar) {
 		panel_QueTieneLaLista_1 = new Elementos_Listados(pUsuarios, aMostrar);
 		panel_QueTieneLaLista_1.setOpaque(true);

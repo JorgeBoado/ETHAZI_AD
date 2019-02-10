@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 public class ModernTXField extends JTextField {
 
 	/**
-	 * 
+	 *  clase para textfield moderno sin funcionalidad
 	 */
 	private static final long serialVersionUID = 1L;
 

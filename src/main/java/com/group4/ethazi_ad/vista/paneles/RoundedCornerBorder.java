@@ -8,7 +8,7 @@ import java.awt.geom.RoundRectangle2D;
 
 public class RoundedCornerBorder extends AbstractBorder {
 	  /**
-	 * 
+	 * Lo usan los TextFieldds para ser redondos
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final Color ALPHA_ZERO = new Color(0x0, true);

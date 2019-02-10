@@ -14,6 +14,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.net.URL;
 
+
+/**
+ *  Ventana para crear o modificar admionistradores
+ */
 public class VentanaAdmin extends JDialog {
 
 	public static final int NEWUSER = 1;
@@ -40,6 +44,14 @@ public class VentanaAdmin extends JDialog {
 		return frame;
 	}
 
+
+	/**
+	 *
+	 * @param usuario usuario clickado
+	 * @param modo si es edicion o modificaccion
+	 * @param x coordenada para abrir
+	 * @param y coordenada para abrir
+	 */
 	public static void adminFrame(final Object usuario, final int modo, final int x, final int y) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -58,7 +70,11 @@ public class VentanaAdmin extends JDialog {
 	}
 
 	/**
-	 * Create the frame.
+	 *
+	 * @param usuario  clickado
+	 * @param x coordenada para abrir la ventana
+	 * @param y coordenada para abrir la ventana
+	 * @param modo si es creacion o modificacion
 	 */
 	public VentanaAdmin(final Object usuario, final int x, final int y, final int modo) {
 		super(frame, true);
@@ -213,9 +229,6 @@ public class VentanaAdmin extends JDialog {
 		return lbl_error;
 	}
 
-	public static void setLbl_error(JLabel lbl_error) {
-		VentanaAdmin.lbl_error = lbl_error;
-	}
 
 }
 	

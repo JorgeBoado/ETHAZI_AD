@@ -14,11 +14,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Ventana para logearse
+ */
 public class VentanaLog extends JFrame {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private static 	JLabel lblNick;
 	private static JFrame frame;

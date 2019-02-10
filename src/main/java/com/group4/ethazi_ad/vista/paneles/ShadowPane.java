@@ -4,6 +4,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+
+/**
+ * Intento fallido de dar sombra a la ventana, ya que al quitar la barra del sistema se pierde la sombra
+ */
 public class ShadowPane extends JPanel {
 
 	private static final long serialVersionUID = 1L;

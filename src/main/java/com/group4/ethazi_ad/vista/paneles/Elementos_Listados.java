@@ -5,11 +5,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Elementos_Listados extends JPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1617775952182198487L;
 
+	private static final long serialVersionUID = 1617775952182198487L;
+	/**
+	 * @param arrayElementosListables lista de elementos que listara
+	 * @param limite, el limite de elementops listables de la pagijna
+	 *
+	 *                Crea un panel con paneles mas pequeños en forma de lista
+	 */
 	public Elementos_Listados(ArrayList<Elemento_A_Listar> arrayElementosListables, int limite) {
 		setLayout(null);
 		setBorder(null);
@@ -26,6 +29,13 @@ public class Elementos_Listados extends JPanel {
 		}
 	}
 
+	/**
+	 *
+	 * @param arrayElementosListables lista de elementos que listara
+	 * @param limite el limite de elementops listables de la pagijna
+	 *
+	 *               actualiza la lista
+	 */
 	public void actualizar(ArrayList<Elemento_A_Listar> arrayElementosListables, int limite) {
 		removeAll();
 		setPreferredSize(new Dimension(450, arrayElementosListables.size() * 75 ));
