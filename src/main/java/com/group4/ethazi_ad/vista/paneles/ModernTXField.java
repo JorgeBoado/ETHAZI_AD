@@ -28,12 +28,12 @@ public class ModernTXField extends JTextField {
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				limitar(16, e);
+				limitar(30, e);
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				limitar(16, e);
+				limitar(30, e);
 			}
 		});
 	}
