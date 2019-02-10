@@ -40,7 +40,7 @@ public class Control {
      *                todas las aciones necesarias ni lo que necesitarian, era una forma de prevenir futuros requerimientos
      *                de parametros, ya que el objeto auxiliar puede ser un arraylist de objetos y que cada uno sea un parametro)
      */
-    public static void control(int opcion, Object object) {
+    public  synchronized  static void control(int opcion, Object object) {
 
         switch (opcion) {
             case 1:
